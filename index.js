@@ -35,6 +35,8 @@ import type { TransformedApplication } from '../../server/transformers/transform
 import type { TransformedApplicationVersion } from '../../server/transformers/transformApplicationVersion';
 
 class Intercom {
+  static VERSION = '1.0.0+${+new Date()}';
+
 `;
 
 (async () => {
