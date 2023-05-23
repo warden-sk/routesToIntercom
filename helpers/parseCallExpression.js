@@ -12,20 +12,35 @@ function parseCallExpression(node) {
 
   const { expression, name } = node.expression;
 
-  invariant(typescript.isIdentifier(expression), '`expression` is not an `Identifier`');
-  invariant(typescript.isIdentifier(name), '`name` is not an `Identifier`');
+  if (typescript.isIdentifier(expression)) {
+    const typeArguments = node.typeArguments || [];
 
-  const typeArguments = node.typeArguments || [];
+    const parsedTypeArguments = typeArguments.flatMap(typeArgument =>
+      typescript.isTypeLiteralNode(typeArgument) ? typeArgument.members.map(member => parseArguments(member)) : []
+    );
 
-  const parsedTypeArguments = typeArguments.flatMap(typeArgument =>
-    typescript.isTypeLiteralNode(typeArgument) ? typeArgument.members.map(member => parseArguments(member)) : []
-  );
+    return {
+      arguments: parsedArguments,
+      expression: `${expression.text}.${name.text}`,
+      typeArguments: parsedTypeArguments,
+    };
+  }
 
-  return {
-    arguments: parsedArguments,
-    expression: `${expression.text}.${name.text}`,
-    typeArguments: parsedTypeArguments,
-  };
+  if (typescript.isNewExpression(expression)) {
+    const typeArguments = expression.typeArguments || [];
+
+    const parsedTypeArguments = typeArguments.flatMap(typeArgument =>
+      typescript.isTypeLiteralNode(typeArgument) ? typeArgument.members.map(member => parseArguments(member)) : []
+    );
+
+    return {
+      arguments: expression.arguments.map(argument => parseArguments(argument)),
+      expression: `${name.text}`,
+      typeArguments: parsedTypeArguments,
+    };
+  }
+
+  // error
 }
 
 exports.default = parseCallExpression;
