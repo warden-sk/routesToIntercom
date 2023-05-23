@@ -16,7 +16,7 @@ const typeToString = $ => {
     case 'StringKeyword':
       return 'string';
     case 'TypeLiteral':
-      return `{ ${$.of.map(typePart => `${typePart.text}: ${typeToString(typePart.of)}`).join(', ')} }`;
+      return `{ ${$.of.map(typePart => `${typePart.text}: ${typeToString(typePart.of)}`).join('; ')} }`;
     case 'TypeReference':
       return $.text;
     case 'UnionType':
