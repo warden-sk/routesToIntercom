@@ -1,8 +1,9 @@
-const typescript = require('typescript');
+const File = require('../helpers/File').default;
+const getAllRouteFilesFromDirectory = require('./helpers/getAllRouteFilesFromDirectory').default;
 const getAsyncFunction = require('./functionAsText/getAsyncFunction').default;
 const getRequest = require('./functionAsText/getRequest').default;
-const getAllRouteFilesFromDirectory = require('./helpers/getAllRouteFilesFromDirectory').default;
 const traverse = require('./helpers/traverse').default;
+const typescript = require('typescript');
 
 const typeToString = $ => {
   switch ($.kind) {
@@ -103,5 +104,5 @@ class Intercom {
 export default Intercom;
 `;
 
-  process.stdout.write(text);
+  new File('./public/Intercom.ts').writeFile(text);
 })();
