@@ -81,7 +81,7 @@ class Intercom {
         )
     );
   }
-  async signInRoute(body?: string | undefined, method = 'POST'): Promise<Account> {
+  async signInRoute(body?: string, method: 'POST' = 'POST'): Promise<Account> {
     const request = this.#getRequest('https://leopold-server.warden.sk/sign-in', method, {  }, body);
     return new Promise(async (onResponse, onError) =>
       fetch(request)
@@ -114,8 +114,8 @@ class Intercom {
         )
     );
   }
-  async meFriendRequestRoute(): Promise<{ account: Account, id: string }[]> {
-    const request = this.#getRequest('https://leopold-server.warden.sk/me/friend/request', 'GET', {  });
+  async meFriendRequestRoute(id?: string, body?: string, method: 'DELETE' | 'GET' | 'POST' = 'POST'): Promise<void> {
+    const request = this.#getRequest('https://leopold-server.warden.sk/me/friend/request/:id?', method, { id }, body);
     return new Promise(async (onResponse, onError) =>
       fetch(request)
         .then(async response => response.json())
@@ -147,7 +147,7 @@ class Intercom {
         )
     );
   }
-  async meSecretRoute(body?: string | undefined, method = 'POST'): Promise<void> {
+  async meSecretRoute(body?: string, method: 'POST' = 'POST'): Promise<void> {
     const request = this.#getRequest('https://leopold-server.warden.sk/me/secret', method, {  }, body);
     return new Promise(async (onResponse, onError) =>
       fetch(request)
