@@ -33,6 +33,7 @@ import type { Account } from '../../server/storages/AccountStorage';
 import type { Category } from '../../server/storages/CategoryStorage';
 import type { TransformedApplication } from '../../server/transformers/transformApplication';
 import type { TransformedApplicationVersion } from '../../server/transformers/transformApplicationVersion';
+
 class Intercom {
 `;
 
@@ -96,11 +97,14 @@ class Intercom {
         type: rT || 'void',
         url: routeUrl,
       });
+
+      text += '\n';
     }
   );
 
   text += getRequest();
   text += `}
+
 export default Intercom;
 `;
 
