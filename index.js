@@ -1,8 +1,8 @@
-const typescript_1 = require('typescript');
-const getAsyncFunction_1 = require('./functionAsText/getAsyncFunction').default;
-const getRequest_1 = require('./functionAsText/getRequest').default;
-const getAllRouteFilesFromDirectory_1 = require('./helpers/getAllRouteFilesFromDirectory').default;
-const traverse_1 = require('./helpers/traverse').default;
+const typescript = require('typescript');
+const getAsyncFunction = require('./functionAsText/getAsyncFunction').default;
+const getRequest = require('./functionAsText/getRequest').default;
+const getAllRouteFilesFromDirectory = require('./helpers/getAllRouteFilesFromDirectory').default;
+const traverse = require('./helpers/traverse').default;
 const typeToString = $ => {
   switch ($.kind) {
     case 'ArrayType':
@@ -33,16 +33,16 @@ import type { TransformedApplicationVersion } from '../../server/transformers/tr
 class Intercom {
 `;
 (async () => {
-  await getAllRouteFilesFromDirectory_1(
+  await getAllRouteFilesFromDirectory(
     '/Users/marekkobida/Documents/warden/leopold/server/routes',
     (routeFile, routeFilePath) => {
-      const sourceFile = typescript_1.createSourceFile(
+      const sourceFile = typescript.createSourceFile(
         routeFilePath,
         routeFile.toString(),
-        typescript_1.ScriptTarget.ESNext,
+        typescript.ScriptTarget.ESNext,
         true
       );
-      const traverseOutput = traverse_1(sourceFile);
+      const traverseOutput = traverse(sourceFile);
       const hasMoreRoutes = traverseOutput.expressionStatements.length > 0;
       const pattern = traverseOutput.variableStatements[0];
       const patternArguments = pattern.callExpression.arguments;
@@ -74,7 +74,7 @@ class Intercom {
       const rT = routeArguments[2].typeArguments.reduce((accumulator, currentType) => {
         return (accumulator += typeToString(currentType));
       }, '');
-      text += getAsyncFunction_1({
+      text += getAsyncFunction({
         arguments: [rAWithTypes, rAWithoutTypes],
         hasMoreRoutes,
         method: routeMethod,
@@ -84,7 +84,7 @@ class Intercom {
       });
     }
   );
-  text += getRequest_1();
+  text += getRequest();
   text += `}
 export default Intercom;
 `;

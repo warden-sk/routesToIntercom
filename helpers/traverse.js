@@ -1,19 +1,17 @@
-const typescript_1 = require('typescript');
-const parseCallExpression_1 = require('./parseCallExpression').default;
-const parseVariableDeclaration_1 = require('./parseVariableDeclaration').default;
+const typescript = require('typescript');
+const parseCallExpression = require('./parseCallExpression').default;
+const parseVariableDeclaration = require('./parseVariableDeclaration').default;
 function traverse(node) {
-  const variableStatements = node.statements.filter(statement => typescript_1.isVariableStatement(statement));
+  const variableStatements = node.statements.filter(statement => typescript.isVariableStatement(statement));
   const expressionStatements = node.statements.filter(
-    statement => typescript_1.isExpressionStatement(statement) && typescript_1.isCallExpression(statement.expression)
+    statement => typescript.isExpressionStatement(statement) && typescript.isCallExpression(statement.expression)
   );
   return {
-    //@ts-ignore
     expressionStatements: expressionStatements.map(statement => ({
-      //@ts-ignore
-      callExpression: parseCallExpression_1(statement.expression),
+      callExpression: parseCallExpression(statement.expression),
     })),
     variableStatements: variableStatements.map(statement =>
-      parseVariableDeclaration_1(statement.declarationList.declarations[0])
+      parseVariableDeclaration(statement.declarationList.declarations[0])
     ),
   };
 }
