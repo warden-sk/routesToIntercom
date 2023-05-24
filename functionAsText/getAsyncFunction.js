@@ -1,15 +1,26 @@
 function getAsyncFunction(input) {
-  const { hasMoreRoutes, method, name, type, url } = input;
-  const hasBody = hasMoreRoutes || method === 'POST';
+  const { method, name, type, url } = input;
+
+  const hasBody = Array.isArray(method) || ['DELETE', 'PATCH', 'POST', 'PUT'].indexOf(method) !== -1;
+
+  let methodToString = Array.isArray(method) ? method.map($ => `'${$}'`).join(' | ') : `'${method}'`;
+
+  methodToString += ` = '${Array.isArray(method) ? method[method.length - 1] : method}'`;
+
   const $ = input.arguments[0]
-    ? `${input.arguments[0]}${hasBody ? `, body?: string | undefined, method = '${method}'` : ''}`
+    ? `${input.arguments[0]}${hasBody ? `, body?: string, method: ${methodToString}` : ''}`
     : hasBody
-    ? `body?: string | undefined, method = '${method}'`
+    ? `body?: string, method: ${methodToString}`
     : '';
+
+  const $$ = input.arguments[1] ? `{ ${input.arguments[1]} }` : '{}';
+
   const requestBody = hasBody ? ', body' : '';
-  const requestMethod = hasBody ? 'method' : `'${method}'`;
+  const requestMethod = hasBody ? 'method' : `'GET'`;
+
   return `  async ${name}(${$}): Promise<${type}> {
-    const request = this.#getRequest('${url}', ${requestMethod}, { ${input.arguments[1]} }${requestBody});
+    const request = this.#getRequest('${url}', ${requestMethod}, ${$$}${requestBody});
+
     return new Promise(async (onResponse, onError) =>
       fetch(request)
         .then(async response => response.json())
@@ -21,4 +32,5 @@ function getAsyncFunction(input) {
   }
 `;
 }
+
 exports.default = getAsyncFunction;

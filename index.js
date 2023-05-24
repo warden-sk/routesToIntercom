@@ -43,6 +43,8 @@ class Intercom {
   await getAllRouteFilesFromDirectory(
     '/Users/marekkobida/Documents/warden/leopold/server/routes',
     (routeFile, routeFilePath) => {
+      const [, fileName] = /([^/]+)\.ts$/.exec(routeFilePath);
+
       const sourceFile = typescript.createSourceFile(
         routeFilePath,
         routeFile.toString(),
@@ -52,48 +54,46 @@ class Intercom {
 
       const traverseOutput = traverse(sourceFile);
 
-      const hasMoreRoutes = traverseOutput.expressionStatements.length > 0;
-
       const pattern = traverseOutput.variableStatements[0];
       const patternArguments = pattern.callExpression.arguments;
       const patternExpression = pattern.callExpression.expression;
       const patternTypeArguments = pattern.callExpression.typeArguments;
 
-      const route = traverseOutput.variableStatements[1];
+      const route = traverseOutput.expressionStatements[0];
       const routeArguments = route.callExpression.arguments;
-      let routeUrl = patternExpression;
 
+      let routeUrl = patternExpression;
       if (/ApplicationRoutePattern/.test(routeUrl)) {
         routeUrl = 'https://leopold-application.warden.sk' + patternArguments[0].text;
       } else if (/ServerRoutePattern/.test(routeUrl)) {
         routeUrl = 'https://leopold-server.warden.sk' + patternArguments[0].text;
       }
 
-      const routeMethod = routeArguments[0].text;
-      const routeName = route.name;
+      const routeMethod =
+        traverseOutput.expressionStatements.length > 1
+          ? traverseOutput.expressionStatements.map($ => $.callExpression.arguments[0].text)
+          : routeArguments[0].text;
 
-      const rAWithTypes =
-        patternTypeArguments.length > 0
-          ? patternTypeArguments.reduce(($, patternType, i) => {
+      const routeName = fileName;
+
+      const rAWithTypes = patternTypeArguments
+        ? patternTypeArguments
+            .map(patternType => {
               const questionToken = patternType.hasQuestionToken ? '?' : '';
-              return `${$}${i === 0 ? '' : ', '}${patternType.text}${questionToken}: ${typeToString(patternType)}`;
-            }, '')
-          : '';
 
-      const rAWithoutTypes =
-        patternTypeArguments.length > 0
-          ? patternTypeArguments.reduce(($, patternType, i) => {
-              return `${$}${i === 0 ? '' : ', '}${patternType.text}`;
-            }, '')
-          : '';
+              return `${patternType.text}${questionToken}: ${typeToString(patternType)}`;
+            })
+            .join(', ')
+        : '';
 
-      const rT = routeArguments[2].typeArguments.reduce((accumulator, currentType) => {
-        return (accumulator += typeToString(currentType));
-      }, '');
+      const rAWithoutTypes = patternTypeArguments
+        ? patternTypeArguments.map(patternType => patternType.text).join(', ')
+        : '';
+
+      const rT = routeArguments[2].typeArguments.map(typeToString).join('');
 
       text += getAsyncFunction({
         arguments: [rAWithTypes, rAWithoutTypes],
-        hasMoreRoutes,
         method: routeMethod,
         name: routeName,
         type: rT || 'void',
