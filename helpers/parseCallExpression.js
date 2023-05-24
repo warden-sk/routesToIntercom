@@ -1,12 +1,12 @@
 const typescript = require('typescript');
 const invariant = require('../../helpers/invariant').default;
-const parseArguments = require('./parseArguments').default;
+const parseArgument = require('./parseArgument').default;
 
-const getArguments = $ => $.map(argument => parseArguments(argument));
+const getArguments = $ => $.map(argument => parseArgument(argument));
 
 const getTypeArguments = $ =>
   $?.flatMap(typeArgument =>
-    typescript.isTypeLiteralNode(typeArgument) ? typeArgument.members.map(member => parseArguments(member)) : []
+    typescript.isTypeLiteralNode(typeArgument) ? typeArgument.members.map(member => parseArgument(member)) : []
   );
 
 function parseCallExpression(node) {

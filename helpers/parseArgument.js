@@ -1,9 +1,9 @@
 const typescript = require('typescript');
 const invariant = require('../../helpers/invariant').default;
 
-function parseArguments(node) {
+function parseArgument(node) {
   if (typescript.isArrayTypeNode(node)) {
-    return { kind: 'ArrayType', of: parseArguments(node.elementType) };
+    return { kind: 'ArrayType', of: parseArgument(node.elementType) };
   }
 
   if (typescript.isArrowFunction(node)) {
@@ -12,7 +12,7 @@ function parseArguments(node) {
     // if `Promise`
     if (node.type && typescript.isTypeReferenceNode(node.type)) {
       if (node.type.typeArguments) {
-        typeArguments = node.type.typeArguments.map(parseArguments);
+        typeArguments = node.type.typeArguments.map(parseArgument);
       }
     }
 
@@ -34,7 +34,7 @@ function parseArguments(node) {
     return {
       hasQuestionToken: !!node.questionToken,
       kind: 'PropertySignature',
-      of: parseArguments(node.type),
+      of: parseArgument(node.type),
       text: node.name.text,
     };
   }
@@ -44,7 +44,7 @@ function parseArguments(node) {
   }
 
   if (typescript.isTypeLiteralNode(node)) {
-    return { kind: 'TypeLiteral', of: node.members.map(parseArguments) };
+    return { kind: 'TypeLiteral', of: node.members.map(parseArgument) };
   }
 
   if (typescript.isTypeReferenceNode(node)) {
@@ -54,10 +54,10 @@ function parseArguments(node) {
   }
 
   if (typescript.isUnionTypeNode(node)) {
-    return { kind: 'UnionType', of: node.types.map(parseArguments) };
+    return { kind: 'UnionType', of: node.types.map(parseArgument) };
   }
 
   return { kind: typescript.SyntaxKind[node.kind] };
 }
 
-exports.default = parseArguments;
+exports.default = parseArgument;
