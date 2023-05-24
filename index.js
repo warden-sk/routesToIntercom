@@ -68,24 +68,22 @@ class Intercom {
 
       const routeMethod =
         traverseOutput.expressionStatements.length > 1
-          ? traverseOutput.expressionStatements.map($ => $.arguments[0].text)
+          ? traverseOutput.expressionStatements.map(callExpression => callExpression.arguments[0].text)
           : routeArguments[0].text;
 
       const routeName = fileName;
 
       const rAWithTypes = patternTypeArguments
         ? patternTypeArguments
-            .map(patternType => {
-              const questionToken = patternType.hasQuestionToken ? '?' : '';
+            .map(argument => {
+              const questionToken = argument.hasQuestionToken ? '?' : '';
 
-              return `${patternType.text}${questionToken}: ${typeToString(patternType)}`;
+              return `${argument.text}${questionToken}: ${typeToString(argument)}`;
             })
             .join(', ')
         : '';
 
-      const rAWithoutTypes = patternTypeArguments
-        ? patternTypeArguments.map(patternType => patternType.text).join(', ')
-        : '';
+      const rAWithoutTypes = patternTypeArguments ? patternTypeArguments.map(argument => argument.text).join(', ') : '';
 
       const rT = routeArguments[2].typeArguments.map(typeToString).join('');
 
