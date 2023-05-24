@@ -2,9 +2,14 @@ const typescript = require('typescript');
 const invariant = require('../../helpers/invariant').default;
 const parseArguments = require('./parseArguments').default;
 
-function parseCallExpression(node) {
-  const parsedArguments = node.arguments.map(argument => parseArguments(argument));
+const getArguments = $ => $.map(argument => parseArguments(argument));
 
+const getTypeArguments = $ =>
+  $?.flatMap(typeArgument =>
+    typescript.isTypeLiteralNode(typeArgument) ? typeArgument.members.map(member => parseArguments(member)) : []
+  );
+
+function parseCallExpression(node) {
   invariant(
     typescript.isPropertyAccessExpression(node.expression),
     '`CallExpression` expression is not an `PropertyAccessExpression`'
@@ -12,35 +17,21 @@ function parseCallExpression(node) {
 
   const { expression, name } = node.expression;
 
+  let arguments, typeArguments;
+
   if (typescript.isIdentifier(expression)) {
-    const typeArguments = node.typeArguments || [];
-
-    const parsedTypeArguments = typeArguments.flatMap(typeArgument =>
-      typescript.isTypeLiteralNode(typeArgument) ? typeArgument.members.map(member => parseArguments(member)) : []
-    );
-
-    return {
-      arguments: parsedArguments,
-      expression: `${expression.text}.${name.text}`,
-      typeArguments: parsedTypeArguments,
-    };
+    arguments = getArguments(node.arguments);
+    typeArguments = getTypeArguments(node.typeArguments);
+  } else if (typescript.isNewExpression(expression)) {
+    arguments = getArguments(expression.arguments);
+    typeArguments = getTypeArguments(expression.typeArguments);
   }
 
-  if (typescript.isNewExpression(expression)) {
-    const typeArguments = expression.typeArguments || [];
-
-    const parsedTypeArguments = typeArguments.flatMap(typeArgument =>
-      typescript.isTypeLiteralNode(typeArgument) ? typeArgument.members.map(member => parseArguments(member)) : []
-    );
-
-    return {
-      arguments: expression.arguments.map(argument => parseArguments(argument)),
-      expression: `${name.text}`,
-      typeArguments: parsedTypeArguments,
-    };
-  }
-
-  // error
+  return {
+    arguments,
+    expression: name.text,
+    typeArguments,
+  };
 }
 
 exports.default = parseCallExpression;
