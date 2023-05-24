@@ -16,12 +16,11 @@ const typeToString = $ => {
     case 'StringKeyword':
       return 'string';
     case 'TypeLiteral':
-      return `{ ${$.of.map(typePart => `${typePart.text}: ${typeToString(typePart.of)}`).join('; ')} }`;
+      return `{ ${$.of.map(member => `${member.text}: ${typeToString(member.of)}`).join('; ')} }`;
     case 'TypeReference':
       return $.text;
     case 'UnionType':
-      const unionTypeParts = $.of.map(typePart => typeToString(typePart));
-      return unionTypeParts.join(' | ');
+      return $.of.map(typeToString).join(' | ');
     default:
       return $.kind;
   }
@@ -53,12 +52,12 @@ class Intercom {
       const traverseOutput = traverse(sourceFile);
 
       const pattern = traverseOutput.variableStatements[0];
-      const patternArguments = pattern.callExpression.arguments;
-      const patternExpression = pattern.callExpression.expression;
-      const patternTypeArguments = pattern.callExpression.typeArguments;
+      const patternArguments = pattern.arguments;
+      const patternExpression = pattern.expression;
+      const patternTypeArguments = pattern.typeArguments;
 
       const route = traverseOutput.expressionStatements[0];
-      const routeArguments = route.callExpression.arguments;
+      const routeArguments = route.arguments;
 
       let routeUrl = patternExpression;
       if (/ApplicationRoutePattern/.test(routeUrl)) {
@@ -69,7 +68,7 @@ class Intercom {
 
       const routeMethod =
         traverseOutput.expressionStatements.length > 1
-          ? traverseOutput.expressionStatements.map($ => $.callExpression.arguments[0].text)
+          ? traverseOutput.expressionStatements.map($ => $.arguments[0].text)
           : routeArguments[0].text;
 
       const routeName = fileName;

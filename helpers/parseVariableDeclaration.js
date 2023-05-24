@@ -8,9 +8,7 @@ function parseVariableDeclaration(node) {
     '`VariableDeclaration` initializer is not an `CallExpression`'
   );
 
-  return {
-    callExpression: parseCallExpression(node.initializer),
-  };
+  return parseCallExpression(node.initializer);
 }
 
 exports.default = parseVariableDeclaration;

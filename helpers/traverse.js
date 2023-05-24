@@ -7,9 +7,7 @@ function traverse(node) {
     .filter(
       statement => typescript.isExpressionStatement(statement) && typescript.isCallExpression(statement.expression)
     )
-    .map(statement => ({
-      callExpression: parseCallExpression(statement.expression),
-    }));
+    .map(statement => parseCallExpression(statement.expression));
 
   const variableStatements = node.statements
     .filter(statement => typescript.isVariableStatement(statement))
