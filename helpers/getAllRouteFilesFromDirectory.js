@@ -5,7 +5,7 @@ async function getAllRouteFilesFromDirectory(directoryPath, onRouteFile) {
   const directoryTree = await getDirectoryTree(directoryPath);
 
   async function traverseTree($) {
-    if ($.children && $.children.length > 0) {
+    if ($.children) {
       for (const child of $.children) {
         await traverseTree(child);
       }

@@ -1,11 +1,10 @@
-import report from '../../helpers/report';
 import type { Account } from '../../server/storages/AccountStorage';
 import type { Category } from '../../server/storages/CategoryStorage';
 import type { TransformedApplication } from '../../server/transformers/transformApplication';
 import type { TransformedApplicationVersion } from '../../server/transformers/transformApplicationVersion';
 
 class Intercom {
-  static VERSION = '1.0.0+1684857231304';
+  static VERSION = '1.0.0+1684892099956';
 
   async accountApplicationRoute(accountId: string): Promise<TransformedApplication[]> {
     const request = this.#getRequest('https://leopold-server.warden.sk/account/:accountId/application', 'GET', { accountId });
@@ -226,9 +225,8 @@ class Intercom {
       }
     }
 
-    report('OUT', method, url);
-
     return new Request(url, { body, credentials: 'include', headers: { Accept: 'application/json', 'Intercom-Version': Intercom.VERSION }, method });
   }
 }
+
 export default Intercom;

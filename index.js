@@ -3,7 +3,7 @@ const getAllRouteFilesFromDirectory = require('./helpers/getAllRouteFilesFromDir
 const getAsyncFunction = require('./functionAsText/getAsyncFunction').default;
 const getRequestFunction = require('./functionAsText/getRequestFunction').default;
 const traverse = require('./helpers/traverse').default;
-const typeAsText = require('./helpers/typeAsText');
+const typeAsText = require('./helpers/typeAsText').default;
 const typescript = require('typescript');
 
 let text = `import type { Account } from '../../server/storages/AccountStorage';
@@ -38,19 +38,19 @@ class Intercom {
       const route = traverseOutput.expressionStatements[0];
       const routeArguments = route.arguments;
 
-      let routeUrl = patternExpression;
-      if (/ApplicationRoutePattern/.test(routeUrl)) {
-        routeUrl = 'https://leopold-application.warden.sk' + patternArguments[0].text;
-      } else if (/ServerRoutePattern/.test(routeUrl)) {
-        routeUrl = 'https://leopold-server.warden.sk' + patternArguments[0].text;
-      }
-
       const routeMethod =
         traverseOutput.expressionStatements.length > 1
           ? traverseOutput.expressionStatements.map(callExpression => callExpression.arguments[0].text)
           : routeArguments[0].text;
 
       const routeName = fileName;
+
+      let routeUrl = patternExpression;
+      if (/ApplicationRoutePattern/.test(routeUrl)) {
+        routeUrl = 'https://leopold-application.warden.sk' + patternArguments[0].text;
+      } else if (/ServerRoutePattern/.test(routeUrl)) {
+        routeUrl = 'https://leopold-server.warden.sk' + patternArguments[0].text;
+      }
 
       const rAWithTypes = patternTypeArguments
         ? patternTypeArguments
@@ -84,5 +84,5 @@ class Intercom {
 export default Intercom;
 `;
 
-  new File('./public/Intercom.ts').writeFile(text);
+  await new File('./public/Intercom.ts').writeFile(text);
 })();

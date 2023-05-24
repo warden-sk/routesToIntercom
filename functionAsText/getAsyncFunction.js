@@ -4,7 +4,6 @@ function getAsyncFunction(input) {
   const hasBody = Array.isArray(method) || ['DELETE', 'PATCH', 'POST', 'PUT'].indexOf(method) !== -1;
 
   let methodToString = Array.isArray(method) ? method.map($ => `'${$}'`).join(' | ') : `'${method}'`;
-
   methodToString += ` = '${Array.isArray(method) ? method[method.length - 1] : method}'`;
 
   const $ = input.arguments[0]
