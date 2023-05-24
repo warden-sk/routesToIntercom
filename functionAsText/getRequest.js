@@ -10,8 +10,6 @@ function getRequest() {
       }
     }
 
-    report('OUT', method, url);
-
     return new Request(url, { body, credentials: 'include', headers: { Accept: 'application/json', 'Intercom-Version': Intercom.VERSION }, method });
   }
 `;

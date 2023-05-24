@@ -27,9 +27,7 @@ const typeToString = $ => {
   }
 };
 
-let text = '';
-text += `import report from '../../helpers/report';
-import type { Account } from '../../server/storages/AccountStorage';
+let text = `import type { Account } from '../../server/storages/AccountStorage';
 import type { Category } from '../../server/storages/CategoryStorage';
 import type { TransformedApplication } from '../../server/transformers/transformApplication';
 import type { TransformedApplicationVersion } from '../../server/transformers/transformApplicationVersion';
