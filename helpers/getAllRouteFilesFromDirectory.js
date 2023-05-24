@@ -16,7 +16,7 @@ async function getAllRouteFilesFromDirectory(directoryPath, onRouteFile) {
     }
 
     if ($.type === 'file') {
-      if (!/\.test\.ts/.test($.path)) {
+      if (!/(\.test|index)\.ts/.test($.path)) {
         const routeFile = await new File($.path).readFile();
 
         onRouteFile(routeFile, $.path);
