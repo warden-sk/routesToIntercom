@@ -1,5 +1,5 @@
-const typescript = require('typescript');
 const invariant = require('../../helpers/invariant').default;
+const typescript = require('typescript');
 
 function parseArgument(node) {
   if (typescript.isArrayTypeNode(node)) {

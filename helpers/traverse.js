@@ -1,6 +1,6 @@
-const typescript = require('typescript');
 const parseCallExpression = require('./parseCallExpression').default;
 const parseVariableDeclaration = require('./parseVariableDeclaration').default;
+const typescript = require('typescript');
 
 function traverse(node) {
   const expressionStatements = node.statements

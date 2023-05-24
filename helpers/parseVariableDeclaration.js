@@ -1,6 +1,6 @@
-const typescript = require('typescript');
 const invariant = require('../../helpers/invariant').default;
 const parseCallExpression = require('./parseCallExpression').default;
+const typescript = require('typescript');
 
 function parseVariableDeclaration(node) {
   invariant(
