@@ -1,3 +1,7 @@
+/*
+ * Copyright 2023 Marek Kobida
+ */
+
 function getRequestFunction() {
   return `  #getRequest(url: string, method: string, $: { [left: string]: string | undefined }, body?: string): Request {
     for (const left of Object.keys($)) {

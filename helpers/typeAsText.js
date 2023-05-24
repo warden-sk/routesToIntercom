@@ -1,3 +1,7 @@
+/*
+ * Copyright 2023 Marek Kobida
+ */
+
 function typeAsText(type) {
   switch (type.kind) {
     case 'ArrayType':

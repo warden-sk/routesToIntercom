@@ -1,3 +1,7 @@
+/*
+ * Copyright 2023 Marek Kobida
+ */
+
 const invariant = require('../../helpers/invariant').default;
 const parseArgument = require('./parseArgument').default;
 const typescript = require('typescript');

@@ -1,3 +1,7 @@
+/*
+ * Copyright 2023 Marek Kobida
+ */
+
 function getAsyncFunction(input) {
   const { method, name, type, url } = input;
 

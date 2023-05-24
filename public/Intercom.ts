@@ -1,10 +1,14 @@
+/*
+ * Copyright 2023 Marek Kobida
+ */
+
 import type { Account } from '../../server/storages/AccountStorage';
 import type { Category } from '../../server/storages/CategoryStorage';
 import type { TransformedApplication } from '../../server/transformers/transformApplication';
 import type { TransformedApplicationVersion } from '../../server/transformers/transformApplicationVersion';
 
 class Intercom {
-  static VERSION = '1.0.0+1684893862979';
+  static VERSION = '1.0.0+1684918576307';
 
   async accountApplicationRoute(accountId: string): Promise<TransformedApplication[]> {
     const request = this.#getRequest('https://leopold-server.warden.sk/account/:accountId/application', 'GET', { accountId });

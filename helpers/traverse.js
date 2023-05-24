@@ -1,3 +1,7 @@
+/*
+ * Copyright 2023 Marek Kobida
+ */
+
 const parseCallExpression = require('./parseCallExpression').default;
 const parseVariableDeclaration = require('./parseVariableDeclaration').default;
 const typescript = require('typescript');

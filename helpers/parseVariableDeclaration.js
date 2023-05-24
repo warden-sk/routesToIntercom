@@ -1,3 +1,7 @@
+/*
+ * Copyright 2023 Marek Kobida
+ */
+
 const invariant = require('../../helpers/invariant').default;
 const parseCallExpression = require('./parseCallExpression').default;
 const typescript = require('typescript');

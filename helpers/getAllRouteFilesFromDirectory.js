@@ -1,3 +1,7 @@
+/*
+ * Copyright 2023 Marek Kobida
+ */
+
 const File = require('../../helpers/File').default;
 const getDirectoryTree = require('../../helpers/getDirectoryTree').default;
 
