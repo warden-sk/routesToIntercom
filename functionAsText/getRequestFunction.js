@@ -1,4 +1,4 @@
-function getRequest() {
+function getRequestFunction() {
   return `  #getRequest(url: string, method: string, $: { [left: string]: string | undefined }, body?: string): Request {
     for (const left of Object.keys($)) {
       const right = $[left];
@@ -14,4 +14,5 @@ function getRequest() {
   }
 `;
 }
-exports.default = getRequest;
+
+exports.default = getRequestFunction;

@@ -1,7 +1,7 @@
 const File = require('../helpers/File').default;
 const getAllRouteFilesFromDirectory = require('./helpers/getAllRouteFilesFromDirectory').default;
 const getAsyncFunction = require('./functionAsText/getAsyncFunction').default;
-const getRequest = require('./functionAsText/getRequest').default;
+const getRequestFunction = require('./functionAsText/getRequestFunction').default;
 const traverse = require('./helpers/traverse').default;
 const typescript = require('typescript');
 
@@ -45,8 +45,7 @@ class Intercom {
       const sourceFile = typescript.createSourceFile(
         routeFilePath,
         routeFile.toString(),
-        typescript.ScriptTarget.ESNext,
-        true
+        typescript.ScriptTarget.ESNext
       );
 
       const traverseOutput = traverse(sourceFile);
@@ -99,7 +98,7 @@ class Intercom {
     }
   );
 
-  text += getRequest();
+  text += getRequestFunction();
   text += `}
 
 export default Intercom;
