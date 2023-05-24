@@ -3,28 +3,8 @@ const getAllRouteFilesFromDirectory = require('./helpers/getAllRouteFilesFromDir
 const getAsyncFunction = require('./functionAsText/getAsyncFunction').default;
 const getRequestFunction = require('./functionAsText/getRequestFunction').default;
 const traverse = require('./helpers/traverse').default;
+const typeAsText = require('./helpers/typeAsText');
 const typescript = require('typescript');
-
-const typeToString = $ => {
-  switch ($.kind) {
-    case 'ArrayType':
-      return `${typeToString($.of)}[]`;
-    case 'LiteralType':
-      return $.text;
-    case 'PropertySignature':
-      return typeToString($.of);
-    case 'StringKeyword':
-      return 'string';
-    case 'TypeLiteral':
-      return `{ ${$.of.map(member => `${member.text}: ${typeToString(member.of)}`).join('; ')} }`;
-    case 'TypeReference':
-      return $.text;
-    case 'UnionType':
-      return $.of.map(typeToString).join(' | ');
-    default:
-      return $.kind;
-  }
-};
 
 let text = `import type { Account } from '../../server/storages/AccountStorage';
 import type { Category } from '../../server/storages/CategoryStorage';
@@ -77,14 +57,14 @@ class Intercom {
             .map(argument => {
               const questionToken = argument.hasQuestionToken ? '?' : '';
 
-              return `${argument.text}${questionToken}: ${typeToString(argument)}`;
+              return `${argument.text}${questionToken}: ${typeAsText(argument)}`;
             })
             .join(', ')
         : '';
 
       const rAWithoutTypes = patternTypeArguments ? patternTypeArguments.map(argument => argument.text).join(', ') : '';
 
-      const rT = routeArguments[2].typeArguments.map(typeToString).join('');
+      const rT = routeArguments[2].typeArguments.map(typeAsText).join('');
 
       text += getAsyncFunction({
         arguments: [rAWithTypes, rAWithoutTypes],
