@@ -21,28 +21,33 @@ function getAsyncFunction(input) {
   const requestBody = hasBody ? ', body' : '';
   const requestMethod = hasBody ? 'method' : `'GET'`;
 
+  const ms = 2500;
+
   return `  async ${name}(${argumentsAsText}): Promise<${type}> {
     const request = this.#getRequest('${url}', ${requestMethod}, ${requestArguments}${requestBody});
 
-    return new Promise(async (onResponse, onError) =>
+    return new Promise(async (onResponse, onError) => {
       fetch(request)
         .then(async response => {
           if (response.status === 204) {
-            return onResponse();
+            setTimeout(() => onResponse(), ${ms});
+          } else {
+            return response.json();
           }
-          return response.json();
         })
         .then(
           json => {
-            if (json && json.error) {
-              onError(json.error);
-            } else {
-              onResponse(json);
-            }
+            setTimeout(() => {
+              if (json && json.error) {
+                onError(json.error);
+              } else {
+                onResponse(json);
+              }
+            }, ${ms});
           },
-          error => onError({ message: error.message, name: error.name })
-        )
-    );
+          error => setTimeout(() => onError({ message: error.message, name: error.name }), ${ms})
+        );
+    });
   }
 `;
 }

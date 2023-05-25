@@ -8,390 +8,438 @@ import type { TransformedApplication } from '../../server/transformers/transform
 import type { TransformedApplicationVersion } from '../../server/transformers/transformApplicationVersion';
 
 class Intercom {
-  static VERSION = '1.0.0+1685012847599';
+  static VERSION = '1.0.0+1685033313656';
 
   async accountApplicationRoute(accountId: string): Promise<TransformedApplication[]> {
     const request = this.#getRequest('https://leopold-server.warden.sk/account/:accountId/application', 'GET', { accountId });
 
-    return new Promise(async (onResponse, onError) =>
+    return new Promise(async (onResponse, onError) => {
       fetch(request)
         .then(async response => {
           if (response.status === 204) {
-            return onResponse();
+            setTimeout(() => onResponse(), 2500);
+          } else {
+            return response.json();
           }
-          return response.json();
         })
         .then(
           json => {
-            if (json && json.error) {
-              onError(json.error);
-            } else {
-              onResponse(json);
-            }
+            setTimeout(() => {
+              if (json && json.error) {
+                onError(json.error);
+              } else {
+                onResponse(json);
+              }
+            }, 2500);
           },
-          error => onError({ message: error.message, name: error.name })
-        )
-    );
+          error => setTimeout(() => onError({ message: error.message, name: error.name }), 2500)
+        );
+    });
   }
 
   async accountFriendRoute(accountId: string): Promise<Account[]> {
     const request = this.#getRequest('https://leopold-server.warden.sk/account/:accountId/friend', 'GET', { accountId });
 
-    return new Promise(async (onResponse, onError) =>
+    return new Promise(async (onResponse, onError) => {
       fetch(request)
         .then(async response => {
           if (response.status === 204) {
-            return onResponse();
+            setTimeout(() => onResponse(), 2500);
+          } else {
+            return response.json();
           }
-          return response.json();
         })
         .then(
           json => {
-            if (json && json.error) {
-              onError(json.error);
-            } else {
-              onResponse(json);
-            }
+            setTimeout(() => {
+              if (json && json.error) {
+                onError(json.error);
+              } else {
+                onResponse(json);
+              }
+            }, 2500);
           },
-          error => onError({ message: error.message, name: error.name })
-        )
-    );
+          error => setTimeout(() => onError({ message: error.message, name: error.name }), 2500)
+        );
+    });
   }
 
   async accountRoute(accountId?: string): Promise<Account | Account[]> {
     const request = this.#getRequest('https://leopold-server.warden.sk/account/:accountId?', 'GET', { accountId });
 
-    return new Promise(async (onResponse, onError) =>
+    return new Promise(async (onResponse, onError) => {
       fetch(request)
         .then(async response => {
           if (response.status === 204) {
-            return onResponse();
+            setTimeout(() => onResponse(), 2500);
+          } else {
+            return response.json();
           }
-          return response.json();
         })
         .then(
           json => {
-            if (json && json.error) {
-              onError(json.error);
-            } else {
-              onResponse(json);
-            }
+            setTimeout(() => {
+              if (json && json.error) {
+                onError(json.error);
+              } else {
+                onResponse(json);
+              }
+            }, 2500);
           },
-          error => onError({ message: error.message, name: error.name })
-        )
-    );
+          error => setTimeout(() => onError({ message: error.message, name: error.name }), 2500)
+        );
+    });
   }
 
   async applicationRoute(applicationId?: string): Promise<TransformedApplication | TransformedApplication[]> {
     const request = this.#getRequest('https://leopold-server.warden.sk/application/:applicationId?', 'GET', { applicationId });
 
-    return new Promise(async (onResponse, onError) =>
+    return new Promise(async (onResponse, onError) => {
       fetch(request)
         .then(async response => {
           if (response.status === 204) {
-            return onResponse();
+            setTimeout(() => onResponse(), 2500);
+          } else {
+            return response.json();
           }
-          return response.json();
         })
         .then(
           json => {
-            if (json && json.error) {
-              onError(json.error);
-            } else {
-              onResponse(json);
-            }
+            setTimeout(() => {
+              if (json && json.error) {
+                onError(json.error);
+              } else {
+                onResponse(json);
+              }
+            }, 2500);
           },
-          error => onError({ message: error.message, name: error.name })
-        )
-    );
+          error => setTimeout(() => onError({ message: error.message, name: error.name }), 2500)
+        );
+    });
   }
 
   async applicationSubscribeRoute(applicationVersionId: string): Promise<void> {
     const request = this.#getRequest('https://leopold-server.warden.sk/application/:applicationVersionId/subscribe', 'GET', { applicationVersionId });
 
-    return new Promise(async (onResponse, onError) =>
+    return new Promise(async (onResponse, onError) => {
       fetch(request)
         .then(async response => {
           if (response.status === 204) {
-            return onResponse();
+            setTimeout(() => onResponse(), 2500);
+          } else {
+            return response.json();
           }
-          return response.json();
         })
         .then(
           json => {
-            if (json && json.error) {
-              onError(json.error);
-            } else {
-              onResponse(json);
-            }
+            setTimeout(() => {
+              if (json && json.error) {
+                onError(json.error);
+              } else {
+                onResponse(json);
+              }
+            }, 2500);
           },
-          error => onError({ message: error.message, name: error.name })
-        )
-    );
+          error => setTimeout(() => onError({ message: error.message, name: error.name }), 2500)
+        );
+    });
   }
 
   async applicationUnsubscribeRoute(applicationVersionId: string): Promise<void> {
     const request = this.#getRequest('https://leopold-server.warden.sk/application/:applicationVersionId/unsubscribe', 'GET', { applicationVersionId });
 
-    return new Promise(async (onResponse, onError) =>
+    return new Promise(async (onResponse, onError) => {
       fetch(request)
         .then(async response => {
           if (response.status === 204) {
-            return onResponse();
+            setTimeout(() => onResponse(), 2500);
+          } else {
+            return response.json();
           }
-          return response.json();
         })
         .then(
           json => {
-            if (json && json.error) {
-              onError(json.error);
-            } else {
-              onResponse(json);
-            }
+            setTimeout(() => {
+              if (json && json.error) {
+                onError(json.error);
+              } else {
+                onResponse(json);
+              }
+            }, 2500);
           },
-          error => onError({ message: error.message, name: error.name })
-        )
-    );
+          error => setTimeout(() => onError({ message: error.message, name: error.name }), 2500)
+        );
+    });
   }
 
   async applicationVersionRoute(applicationId: string): Promise<TransformedApplicationVersion[]> {
     const request = this.#getRequest('https://leopold-server.warden.sk/application/:applicationId/version', 'GET', { applicationId });
 
-    return new Promise(async (onResponse, onError) =>
+    return new Promise(async (onResponse, onError) => {
       fetch(request)
         .then(async response => {
           if (response.status === 204) {
-            return onResponse();
+            setTimeout(() => onResponse(), 2500);
+          } else {
+            return response.json();
           }
-          return response.json();
         })
         .then(
           json => {
-            if (json && json.error) {
-              onError(json.error);
-            } else {
-              onResponse(json);
-            }
+            setTimeout(() => {
+              if (json && json.error) {
+                onError(json.error);
+              } else {
+                onResponse(json);
+              }
+            }, 2500);
           },
-          error => onError({ message: error.message, name: error.name })
-        )
-    );
+          error => setTimeout(() => onError({ message: error.message, name: error.name }), 2500)
+        );
+    });
   }
 
   async signInRoute(body?: string, method: 'POST' = 'POST'): Promise<Account> {
     const request = this.#getRequest('https://leopold-server.warden.sk/sign-in', method, {}, body);
 
-    return new Promise(async (onResponse, onError) =>
+    return new Promise(async (onResponse, onError) => {
       fetch(request)
         .then(async response => {
           if (response.status === 204) {
-            return onResponse();
+            setTimeout(() => onResponse(), 2500);
+          } else {
+            return response.json();
           }
-          return response.json();
         })
         .then(
           json => {
-            if (json && json.error) {
-              onError(json.error);
-            } else {
-              onResponse(json);
-            }
+            setTimeout(() => {
+              if (json && json.error) {
+                onError(json.error);
+              } else {
+                onResponse(json);
+              }
+            }, 2500);
           },
-          error => onError({ message: error.message, name: error.name })
-        )
-    );
+          error => setTimeout(() => onError({ message: error.message, name: error.name }), 2500)
+        );
+    });
   }
 
   async signOutRoute(): Promise<void> {
     const request = this.#getRequest('https://leopold-server.warden.sk/sign-out', 'GET', {});
 
-    return new Promise(async (onResponse, onError) =>
+    return new Promise(async (onResponse, onError) => {
       fetch(request)
         .then(async response => {
           if (response.status === 204) {
-            return onResponse();
+            setTimeout(() => onResponse(), 2500);
+          } else {
+            return response.json();
           }
-          return response.json();
         })
         .then(
           json => {
-            if (json && json.error) {
-              onError(json.error);
-            } else {
-              onResponse(json);
-            }
+            setTimeout(() => {
+              if (json && json.error) {
+                onError(json.error);
+              } else {
+                onResponse(json);
+              }
+            }, 2500);
           },
-          error => onError({ message: error.message, name: error.name })
-        )
-    );
+          error => setTimeout(() => onError({ message: error.message, name: error.name }), 2500)
+        );
+    });
   }
 
   async categoryRoute(): Promise<Category[]> {
     const request = this.#getRequest('https://leopold-server.warden.sk/category', 'GET', {});
 
-    return new Promise(async (onResponse, onError) =>
+    return new Promise(async (onResponse, onError) => {
       fetch(request)
         .then(async response => {
           if (response.status === 204) {
-            return onResponse();
+            setTimeout(() => onResponse(), 2500);
+          } else {
+            return response.json();
           }
-          return response.json();
         })
         .then(
           json => {
-            if (json && json.error) {
-              onError(json.error);
-            } else {
-              onResponse(json);
-            }
+            setTimeout(() => {
+              if (json && json.error) {
+                onError(json.error);
+              } else {
+                onResponse(json);
+              }
+            }, 2500);
           },
-          error => onError({ message: error.message, name: error.name })
-        )
-    );
+          error => setTimeout(() => onError({ message: error.message, name: error.name }), 2500)
+        );
+    });
   }
 
   async meFriendRequestRoute(id?: string, body?: string, method: 'GET' | 'DELETE' | 'POST' = 'GET'): Promise<{ account: Account; id: string }[]> {
     const request = this.#getRequest('https://leopold-server.warden.sk/me/friend/request/:id?', method, { id }, body);
 
-    return new Promise(async (onResponse, onError) =>
+    return new Promise(async (onResponse, onError) => {
       fetch(request)
         .then(async response => {
           if (response.status === 204) {
-            return onResponse();
+            setTimeout(() => onResponse(), 2500);
+          } else {
+            return response.json();
           }
-          return response.json();
         })
         .then(
           json => {
-            if (json && json.error) {
-              onError(json.error);
-            } else {
-              onResponse(json);
-            }
+            setTimeout(() => {
+              if (json && json.error) {
+                onError(json.error);
+              } else {
+                onResponse(json);
+              }
+            }, 2500);
           },
-          error => onError({ message: error.message, name: error.name })
-        )
-    );
+          error => setTimeout(() => onError({ message: error.message, name: error.name }), 2500)
+        );
+    });
   }
 
   async meFriendRoute(): Promise<Account[]> {
     const request = this.#getRequest('https://leopold-server.warden.sk/me/friend', 'GET', {});
 
-    return new Promise(async (onResponse, onError) =>
+    return new Promise(async (onResponse, onError) => {
       fetch(request)
         .then(async response => {
           if (response.status === 204) {
-            return onResponse();
+            setTimeout(() => onResponse(), 2500);
+          } else {
+            return response.json();
           }
-          return response.json();
         })
         .then(
           json => {
-            if (json && json.error) {
-              onError(json.error);
-            } else {
-              onResponse(json);
-            }
+            setTimeout(() => {
+              if (json && json.error) {
+                onError(json.error);
+              } else {
+                onResponse(json);
+              }
+            }, 2500);
           },
-          error => onError({ message: error.message, name: error.name })
-        )
-    );
+          error => setTimeout(() => onError({ message: error.message, name: error.name }), 2500)
+        );
+    });
   }
 
   async meRoute(): Promise<Account> {
     const request = this.#getRequest('https://leopold-server.warden.sk/me', 'GET', {});
 
-    return new Promise(async (onResponse, onError) =>
+    return new Promise(async (onResponse, onError) => {
       fetch(request)
         .then(async response => {
           if (response.status === 204) {
-            return onResponse();
+            setTimeout(() => onResponse(), 2500);
+          } else {
+            return response.json();
           }
-          return response.json();
         })
         .then(
           json => {
-            if (json && json.error) {
-              onError(json.error);
-            } else {
-              onResponse(json);
-            }
+            setTimeout(() => {
+              if (json && json.error) {
+                onError(json.error);
+              } else {
+                onResponse(json);
+              }
+            }, 2500);
           },
-          error => onError({ message: error.message, name: error.name })
-        )
-    );
+          error => setTimeout(() => onError({ message: error.message, name: error.name }), 2500)
+        );
+    });
   }
 
   async meSecretRoute(body?: string, method: 'POST' = 'POST'): Promise<void> {
     const request = this.#getRequest('https://leopold-server.warden.sk/me/secret', method, {}, body);
 
-    return new Promise(async (onResponse, onError) =>
+    return new Promise(async (onResponse, onError) => {
       fetch(request)
         .then(async response => {
           if (response.status === 204) {
-            return onResponse();
+            setTimeout(() => onResponse(), 2500);
+          } else {
+            return response.json();
           }
-          return response.json();
         })
         .then(
           json => {
-            if (json && json.error) {
-              onError(json.error);
-            } else {
-              onResponse(json);
-            }
+            setTimeout(() => {
+              if (json && json.error) {
+                onError(json.error);
+              } else {
+                onResponse(json);
+              }
+            }, 2500);
           },
-          error => onError({ message: error.message, name: error.name })
-        )
-    );
+          error => setTimeout(() => onError({ message: error.message, name: error.name }), 2500)
+        );
+    });
   }
 
   async searchRoute(query: string): Promise<Account[]> {
     const request = this.#getRequest('https://leopold-server.warden.sk/search/:query', 'GET', { query });
 
-    return new Promise(async (onResponse, onError) =>
+    return new Promise(async (onResponse, onError) => {
       fetch(request)
         .then(async response => {
           if (response.status === 204) {
-            return onResponse();
+            setTimeout(() => onResponse(), 2500);
+          } else {
+            return response.json();
           }
-          return response.json();
         })
         .then(
           json => {
-            if (json && json.error) {
-              onError(json.error);
-            } else {
-              onResponse(json);
-            }
+            setTimeout(() => {
+              if (json && json.error) {
+                onError(json.error);
+              } else {
+                onResponse(json);
+              }
+            }, 2500);
           },
-          error => onError({ message: error.message, name: error.name })
-        )
-    );
+          error => setTimeout(() => onError({ message: error.message, name: error.name }), 2500)
+        );
+    });
   }
 
   async testRoute(applicationVersionId: string, path: string): Promise<Buffer> {
     const request = this.#getRequest('https://leopold-application.warden.sk/:applicationVersionId(?<path>/[^#/?]+)', 'GET', { applicationVersionId, path });
 
-    return new Promise(async (onResponse, onError) =>
+    return new Promise(async (onResponse, onError) => {
       fetch(request)
         .then(async response => {
           if (response.status === 204) {
-            return onResponse();
+            setTimeout(() => onResponse(), 2500);
+          } else {
+            return response.json();
           }
-          return response.json();
         })
         .then(
           json => {
-            if (json && json.error) {
-              onError(json.error);
-            } else {
-              onResponse(json);
-            }
+            setTimeout(() => {
+              if (json && json.error) {
+                onError(json.error);
+              } else {
+                onResponse(json);
+              }
+            }, 2500);
           },
-          error => onError({ message: error.message, name: error.name })
-        )
-    );
+          error => setTimeout(() => onError({ message: error.message, name: error.name }), 2500)
+        );
+    });
   }
 
   #getRequest(url: string, method: string, $: { [left: string]: string | undefined }, body?: string): Request {
