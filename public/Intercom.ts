@@ -8,16 +8,27 @@ import type { TransformedApplication } from '../../server/transformers/transform
 import type { TransformedApplicationVersion } from '../../server/transformers/transformApplicationVersion';
 
 class Intercom {
-  static VERSION = '1.0.0+1684918576307';
+  static VERSION = '1.0.0+1685012847599';
 
   async accountApplicationRoute(accountId: string): Promise<TransformedApplication[]> {
     const request = this.#getRequest('https://leopold-server.warden.sk/account/:accountId/application', 'GET', { accountId });
 
     return new Promise(async (onResponse, onError) =>
       fetch(request)
-        .then(async response => response.json())
+        .then(async response => {
+          if (response.status === 204) {
+            return onResponse();
+          }
+          return response.json();
+        })
         .then(
-          json => (json.error ? onError(json.error) : onResponse(json)),
+          json => {
+            if (json && json.error) {
+              onError(json.error);
+            } else {
+              onResponse(json);
+            }
+          },
           error => onError({ message: error.message, name: error.name })
         )
     );
@@ -28,9 +39,20 @@ class Intercom {
 
     return new Promise(async (onResponse, onError) =>
       fetch(request)
-        .then(async response => response.json())
+        .then(async response => {
+          if (response.status === 204) {
+            return onResponse();
+          }
+          return response.json();
+        })
         .then(
-          json => (json.error ? onError(json.error) : onResponse(json)),
+          json => {
+            if (json && json.error) {
+              onError(json.error);
+            } else {
+              onResponse(json);
+            }
+          },
           error => onError({ message: error.message, name: error.name })
         )
     );
@@ -41,9 +63,20 @@ class Intercom {
 
     return new Promise(async (onResponse, onError) =>
       fetch(request)
-        .then(async response => response.json())
+        .then(async response => {
+          if (response.status === 204) {
+            return onResponse();
+          }
+          return response.json();
+        })
         .then(
-          json => (json.error ? onError(json.error) : onResponse(json)),
+          json => {
+            if (json && json.error) {
+              onError(json.error);
+            } else {
+              onResponse(json);
+            }
+          },
           error => onError({ message: error.message, name: error.name })
         )
     );
@@ -54,9 +87,20 @@ class Intercom {
 
     return new Promise(async (onResponse, onError) =>
       fetch(request)
-        .then(async response => response.json())
+        .then(async response => {
+          if (response.status === 204) {
+            return onResponse();
+          }
+          return response.json();
+        })
         .then(
-          json => (json.error ? onError(json.error) : onResponse(json)),
+          json => {
+            if (json && json.error) {
+              onError(json.error);
+            } else {
+              onResponse(json);
+            }
+          },
           error => onError({ message: error.message, name: error.name })
         )
     );
@@ -67,9 +111,20 @@ class Intercom {
 
     return new Promise(async (onResponse, onError) =>
       fetch(request)
-        .then(async response => response.json())
+        .then(async response => {
+          if (response.status === 204) {
+            return onResponse();
+          }
+          return response.json();
+        })
         .then(
-          json => (json.error ? onError(json.error) : onResponse(json)),
+          json => {
+            if (json && json.error) {
+              onError(json.error);
+            } else {
+              onResponse(json);
+            }
+          },
           error => onError({ message: error.message, name: error.name })
         )
     );
@@ -80,9 +135,20 @@ class Intercom {
 
     return new Promise(async (onResponse, onError) =>
       fetch(request)
-        .then(async response => response.json())
+        .then(async response => {
+          if (response.status === 204) {
+            return onResponse();
+          }
+          return response.json();
+        })
         .then(
-          json => (json.error ? onError(json.error) : onResponse(json)),
+          json => {
+            if (json && json.error) {
+              onError(json.error);
+            } else {
+              onResponse(json);
+            }
+          },
           error => onError({ message: error.message, name: error.name })
         )
     );
@@ -93,9 +159,20 @@ class Intercom {
 
     return new Promise(async (onResponse, onError) =>
       fetch(request)
-        .then(async response => response.json())
+        .then(async response => {
+          if (response.status === 204) {
+            return onResponse();
+          }
+          return response.json();
+        })
         .then(
-          json => (json.error ? onError(json.error) : onResponse(json)),
+          json => {
+            if (json && json.error) {
+              onError(json.error);
+            } else {
+              onResponse(json);
+            }
+          },
           error => onError({ message: error.message, name: error.name })
         )
     );
@@ -106,9 +183,20 @@ class Intercom {
 
     return new Promise(async (onResponse, onError) =>
       fetch(request)
-        .then(async response => response.json())
+        .then(async response => {
+          if (response.status === 204) {
+            return onResponse();
+          }
+          return response.json();
+        })
         .then(
-          json => (json.error ? onError(json.error) : onResponse(json)),
+          json => {
+            if (json && json.error) {
+              onError(json.error);
+            } else {
+              onResponse(json);
+            }
+          },
           error => onError({ message: error.message, name: error.name })
         )
     );
@@ -119,9 +207,20 @@ class Intercom {
 
     return new Promise(async (onResponse, onError) =>
       fetch(request)
-        .then(async response => response.json())
+        .then(async response => {
+          if (response.status === 204) {
+            return onResponse();
+          }
+          return response.json();
+        })
         .then(
-          json => (json.error ? onError(json.error) : onResponse(json)),
+          json => {
+            if (json && json.error) {
+              onError(json.error);
+            } else {
+              onResponse(json);
+            }
+          },
           error => onError({ message: error.message, name: error.name })
         )
     );
@@ -132,9 +231,20 @@ class Intercom {
 
     return new Promise(async (onResponse, onError) =>
       fetch(request)
-        .then(async response => response.json())
+        .then(async response => {
+          if (response.status === 204) {
+            return onResponse();
+          }
+          return response.json();
+        })
         .then(
-          json => (json.error ? onError(json.error) : onResponse(json)),
+          json => {
+            if (json && json.error) {
+              onError(json.error);
+            } else {
+              onResponse(json);
+            }
+          },
           error => onError({ message: error.message, name: error.name })
         )
     );
@@ -145,9 +255,20 @@ class Intercom {
 
     return new Promise(async (onResponse, onError) =>
       fetch(request)
-        .then(async response => response.json())
+        .then(async response => {
+          if (response.status === 204) {
+            return onResponse();
+          }
+          return response.json();
+        })
         .then(
-          json => (json.error ? onError(json.error) : onResponse(json)),
+          json => {
+            if (json && json.error) {
+              onError(json.error);
+            } else {
+              onResponse(json);
+            }
+          },
           error => onError({ message: error.message, name: error.name })
         )
     );
@@ -158,9 +279,20 @@ class Intercom {
 
     return new Promise(async (onResponse, onError) =>
       fetch(request)
-        .then(async response => response.json())
+        .then(async response => {
+          if (response.status === 204) {
+            return onResponse();
+          }
+          return response.json();
+        })
         .then(
-          json => (json.error ? onError(json.error) : onResponse(json)),
+          json => {
+            if (json && json.error) {
+              onError(json.error);
+            } else {
+              onResponse(json);
+            }
+          },
           error => onError({ message: error.message, name: error.name })
         )
     );
@@ -171,9 +303,20 @@ class Intercom {
 
     return new Promise(async (onResponse, onError) =>
       fetch(request)
-        .then(async response => response.json())
+        .then(async response => {
+          if (response.status === 204) {
+            return onResponse();
+          }
+          return response.json();
+        })
         .then(
-          json => (json.error ? onError(json.error) : onResponse(json)),
+          json => {
+            if (json && json.error) {
+              onError(json.error);
+            } else {
+              onResponse(json);
+            }
+          },
           error => onError({ message: error.message, name: error.name })
         )
     );
@@ -184,9 +327,20 @@ class Intercom {
 
     return new Promise(async (onResponse, onError) =>
       fetch(request)
-        .then(async response => response.json())
+        .then(async response => {
+          if (response.status === 204) {
+            return onResponse();
+          }
+          return response.json();
+        })
         .then(
-          json => (json.error ? onError(json.error) : onResponse(json)),
+          json => {
+            if (json && json.error) {
+              onError(json.error);
+            } else {
+              onResponse(json);
+            }
+          },
           error => onError({ message: error.message, name: error.name })
         )
     );
@@ -197,9 +351,20 @@ class Intercom {
 
     return new Promise(async (onResponse, onError) =>
       fetch(request)
-        .then(async response => response.json())
+        .then(async response => {
+          if (response.status === 204) {
+            return onResponse();
+          }
+          return response.json();
+        })
         .then(
-          json => (json.error ? onError(json.error) : onResponse(json)),
+          json => {
+            if (json && json.error) {
+              onError(json.error);
+            } else {
+              onResponse(json);
+            }
+          },
           error => onError({ message: error.message, name: error.name })
         )
     );
@@ -210,9 +375,20 @@ class Intercom {
 
     return new Promise(async (onResponse, onError) =>
       fetch(request)
-        .then(async response => response.json())
+        .then(async response => {
+          if (response.status === 204) {
+            return onResponse();
+          }
+          return response.json();
+        })
         .then(
-          json => (json.error ? onError(json.error) : onResponse(json)),
+          json => {
+            if (json && json.error) {
+              onError(json.error);
+            } else {
+              onResponse(json);
+            }
+          },
           error => onError({ message: error.message, name: error.name })
         )
     );
