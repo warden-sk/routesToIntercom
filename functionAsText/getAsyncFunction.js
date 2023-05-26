@@ -21,7 +21,7 @@ function getAsyncFunction(input) {
   const requestBody = hasBody ? ', body' : '';
   const requestMethod = hasBody ? 'method' : `'GET'`;
 
-  const ms = 2500;
+  const ms = 0;
 
   return `  async ${name}(${argumentsAsText}): Promise<${type}> {
     const request = this.#getRequest('${url}', ${requestMethod}, ${requestArguments}${requestBody});
