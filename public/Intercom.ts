@@ -8,7 +8,7 @@ import type { TransformedApplication } from '../../server/transformers/transform
 import type { TransformedApplicationVersion } from '../../server/transformers/transformApplicationVersion';
 
 class Intercom {
-  static VERSION = '1.0.0+1685096248712';
+  static VERSION = '1.0.0+1685676152457';
 
   async accountApplicationRoute(accountId: string): Promise<TransformedApplication[]> {
     const request = this.#getRequest('https://leopold-server.warden.sk/account/:accountId/application', 'GET', { accountId });
@@ -280,7 +280,7 @@ class Intercom {
     });
   }
 
-  async meFriendRequestRoute(id?: string, body?: string, method: 'GET' | 'DELETE' | 'POST' = 'GET'): Promise<{ account: Account; id: string }[]> {
+  async meFriendRequestRoute(id?: string, body?: string, method: 'GET' | 'DELETE' | 'POST' = 'GET'): Promise<ParenthesizedType[]> {
     const request = this.#getRequest('https://leopold-server.warden.sk/me/friend/request/:id?', method, { id }, body);
 
     return new Promise(async (onResponse, onError) => {
