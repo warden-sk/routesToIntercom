@@ -8,7 +8,7 @@ import type { TransformedApplication } from '../../server/transformers/transform
 import type { TransformedApplicationVersion } from '../../server/transformers/transformApplicationVersion';
 
 class Intercom {
-  static VERSION = '1.0.0+1685676152457';
+  static VERSION = '1.0.0+1685699618343';
 
   async accountApplicationRoute(accountId: string): Promise<TransformedApplication[]> {
     const request = this.#getRequest('https://leopold-server.warden.sk/account/:accountId/application', 'GET', { accountId });
@@ -17,22 +17,20 @@ class Intercom {
       fetch(request)
         .then(async response => {
           if (response.status === 204) {
-            setTimeout(() => onResponse(), 0);
+            onResponse();
           } else {
             return response.json();
           }
         })
         .then(
           json => {
-            setTimeout(() => {
-              if (json && json.error) {
-                onError(json.error);
-              } else {
-                onResponse(json);
-              }
-            }, 0);
+            if (json && json.error) {
+              onError(json.error);
+            } else {
+              onResponse(json);
+            }
           },
-          error => setTimeout(() => onError({ message: error.message, name: error.name }), 0)
+          error => onError({ message: error.message, name: error.name })
         );
     });
   }
@@ -44,22 +42,20 @@ class Intercom {
       fetch(request)
         .then(async response => {
           if (response.status === 204) {
-            setTimeout(() => onResponse(), 0);
+            onResponse();
           } else {
             return response.json();
           }
         })
         .then(
           json => {
-            setTimeout(() => {
-              if (json && json.error) {
-                onError(json.error);
-              } else {
-                onResponse(json);
-              }
-            }, 0);
+            if (json && json.error) {
+              onError(json.error);
+            } else {
+              onResponse(json);
+            }
           },
-          error => setTimeout(() => onError({ message: error.message, name: error.name }), 0)
+          error => onError({ message: error.message, name: error.name })
         );
     });
   }
@@ -71,22 +67,20 @@ class Intercom {
       fetch(request)
         .then(async response => {
           if (response.status === 204) {
-            setTimeout(() => onResponse(), 0);
+            onResponse();
           } else {
             return response.json();
           }
         })
         .then(
           json => {
-            setTimeout(() => {
-              if (json && json.error) {
-                onError(json.error);
-              } else {
-                onResponse(json);
-              }
-            }, 0);
+            if (json && json.error) {
+              onError(json.error);
+            } else {
+              onResponse(json);
+            }
           },
-          error => setTimeout(() => onError({ message: error.message, name: error.name }), 0)
+          error => onError({ message: error.message, name: error.name })
         );
     });
   }
@@ -98,22 +92,20 @@ class Intercom {
       fetch(request)
         .then(async response => {
           if (response.status === 204) {
-            setTimeout(() => onResponse(), 0);
+            onResponse();
           } else {
             return response.json();
           }
         })
         .then(
           json => {
-            setTimeout(() => {
-              if (json && json.error) {
-                onError(json.error);
-              } else {
-                onResponse(json);
-              }
-            }, 0);
+            if (json && json.error) {
+              onError(json.error);
+            } else {
+              onResponse(json);
+            }
           },
-          error => setTimeout(() => onError({ message: error.message, name: error.name }), 0)
+          error => onError({ message: error.message, name: error.name })
         );
     });
   }
@@ -125,22 +117,20 @@ class Intercom {
       fetch(request)
         .then(async response => {
           if (response.status === 204) {
-            setTimeout(() => onResponse(), 0);
+            onResponse();
           } else {
             return response.json();
           }
         })
         .then(
           json => {
-            setTimeout(() => {
-              if (json && json.error) {
-                onError(json.error);
-              } else {
-                onResponse(json);
-              }
-            }, 0);
+            if (json && json.error) {
+              onError(json.error);
+            } else {
+              onResponse(json);
+            }
           },
-          error => setTimeout(() => onError({ message: error.message, name: error.name }), 0)
+          error => onError({ message: error.message, name: error.name })
         );
     });
   }
@@ -152,22 +142,20 @@ class Intercom {
       fetch(request)
         .then(async response => {
           if (response.status === 204) {
-            setTimeout(() => onResponse(), 0);
+            onResponse();
           } else {
             return response.json();
           }
         })
         .then(
           json => {
-            setTimeout(() => {
-              if (json && json.error) {
-                onError(json.error);
-              } else {
-                onResponse(json);
-              }
-            }, 0);
+            if (json && json.error) {
+              onError(json.error);
+            } else {
+              onResponse(json);
+            }
           },
-          error => setTimeout(() => onError({ message: error.message, name: error.name }), 0)
+          error => onError({ message: error.message, name: error.name })
         );
     });
   }
@@ -179,22 +167,20 @@ class Intercom {
       fetch(request)
         .then(async response => {
           if (response.status === 204) {
-            setTimeout(() => onResponse(), 0);
+            onResponse();
           } else {
             return response.json();
           }
         })
         .then(
           json => {
-            setTimeout(() => {
-              if (json && json.error) {
-                onError(json.error);
-              } else {
-                onResponse(json);
-              }
-            }, 0);
+            if (json && json.error) {
+              onError(json.error);
+            } else {
+              onResponse(json);
+            }
           },
-          error => setTimeout(() => onError({ message: error.message, name: error.name }), 0)
+          error => onError({ message: error.message, name: error.name })
         );
     });
   }
@@ -206,22 +192,20 @@ class Intercom {
       fetch(request)
         .then(async response => {
           if (response.status === 204) {
-            setTimeout(() => onResponse(), 0);
+            onResponse();
           } else {
             return response.json();
           }
         })
         .then(
           json => {
-            setTimeout(() => {
-              if (json && json.error) {
-                onError(json.error);
-              } else {
-                onResponse(json);
-              }
-            }, 0);
+            if (json && json.error) {
+              onError(json.error);
+            } else {
+              onResponse(json);
+            }
           },
-          error => setTimeout(() => onError({ message: error.message, name: error.name }), 0)
+          error => onError({ message: error.message, name: error.name })
         );
     });
   }
@@ -233,22 +217,20 @@ class Intercom {
       fetch(request)
         .then(async response => {
           if (response.status === 204) {
-            setTimeout(() => onResponse(), 0);
+            onResponse();
           } else {
             return response.json();
           }
         })
         .then(
           json => {
-            setTimeout(() => {
-              if (json && json.error) {
-                onError(json.error);
-              } else {
-                onResponse(json);
-              }
-            }, 0);
+            if (json && json.error) {
+              onError(json.error);
+            } else {
+              onResponse(json);
+            }
           },
-          error => setTimeout(() => onError({ message: error.message, name: error.name }), 0)
+          error => onError({ message: error.message, name: error.name })
         );
     });
   }
@@ -260,22 +242,20 @@ class Intercom {
       fetch(request)
         .then(async response => {
           if (response.status === 204) {
-            setTimeout(() => onResponse(), 0);
+            onResponse();
           } else {
             return response.json();
           }
         })
         .then(
           json => {
-            setTimeout(() => {
-              if (json && json.error) {
-                onError(json.error);
-              } else {
-                onResponse(json);
-              }
-            }, 0);
+            if (json && json.error) {
+              onError(json.error);
+            } else {
+              onResponse(json);
+            }
           },
-          error => setTimeout(() => onError({ message: error.message, name: error.name }), 0)
+          error => onError({ message: error.message, name: error.name })
         );
     });
   }
@@ -287,22 +267,20 @@ class Intercom {
       fetch(request)
         .then(async response => {
           if (response.status === 204) {
-            setTimeout(() => onResponse(), 0);
+            onResponse();
           } else {
             return response.json();
           }
         })
         .then(
           json => {
-            setTimeout(() => {
-              if (json && json.error) {
-                onError(json.error);
-              } else {
-                onResponse(json);
-              }
-            }, 0);
+            if (json && json.error) {
+              onError(json.error);
+            } else {
+              onResponse(json);
+            }
           },
-          error => setTimeout(() => onError({ message: error.message, name: error.name }), 0)
+          error => onError({ message: error.message, name: error.name })
         );
     });
   }
@@ -314,22 +292,20 @@ class Intercom {
       fetch(request)
         .then(async response => {
           if (response.status === 204) {
-            setTimeout(() => onResponse(), 0);
+            onResponse();
           } else {
             return response.json();
           }
         })
         .then(
           json => {
-            setTimeout(() => {
-              if (json && json.error) {
-                onError(json.error);
-              } else {
-                onResponse(json);
-              }
-            }, 0);
+            if (json && json.error) {
+              onError(json.error);
+            } else {
+              onResponse(json);
+            }
           },
-          error => setTimeout(() => onError({ message: error.message, name: error.name }), 0)
+          error => onError({ message: error.message, name: error.name })
         );
     });
   }
@@ -341,22 +317,20 @@ class Intercom {
       fetch(request)
         .then(async response => {
           if (response.status === 204) {
-            setTimeout(() => onResponse(), 0);
+            onResponse();
           } else {
             return response.json();
           }
         })
         .then(
           json => {
-            setTimeout(() => {
-              if (json && json.error) {
-                onError(json.error);
-              } else {
-                onResponse(json);
-              }
-            }, 0);
+            if (json && json.error) {
+              onError(json.error);
+            } else {
+              onResponse(json);
+            }
           },
-          error => setTimeout(() => onError({ message: error.message, name: error.name }), 0)
+          error => onError({ message: error.message, name: error.name })
         );
     });
   }
@@ -368,22 +342,20 @@ class Intercom {
       fetch(request)
         .then(async response => {
           if (response.status === 204) {
-            setTimeout(() => onResponse(), 0);
+            onResponse();
           } else {
             return response.json();
           }
         })
         .then(
           json => {
-            setTimeout(() => {
-              if (json && json.error) {
-                onError(json.error);
-              } else {
-                onResponse(json);
-              }
-            }, 0);
+            if (json && json.error) {
+              onError(json.error);
+            } else {
+              onResponse(json);
+            }
           },
-          error => setTimeout(() => onError({ message: error.message, name: error.name }), 0)
+          error => onError({ message: error.message, name: error.name })
         );
     });
   }
@@ -395,22 +367,20 @@ class Intercom {
       fetch(request)
         .then(async response => {
           if (response.status === 204) {
-            setTimeout(() => onResponse(), 0);
+            onResponse();
           } else {
             return response.json();
           }
         })
         .then(
           json => {
-            setTimeout(() => {
-              if (json && json.error) {
-                onError(json.error);
-              } else {
-                onResponse(json);
-              }
-            }, 0);
+            if (json && json.error) {
+              onError(json.error);
+            } else {
+              onResponse(json);
+            }
           },
-          error => setTimeout(() => onError({ message: error.message, name: error.name }), 0)
+          error => onError({ message: error.message, name: error.name })
         );
     });
   }
@@ -422,22 +392,20 @@ class Intercom {
       fetch(request)
         .then(async response => {
           if (response.status === 204) {
-            setTimeout(() => onResponse(), 0);
+            onResponse();
           } else {
             return response.json();
           }
         })
         .then(
           json => {
-            setTimeout(() => {
-              if (json && json.error) {
-                onError(json.error);
-              } else {
-                onResponse(json);
-              }
-            }, 0);
+            if (json && json.error) {
+              onError(json.error);
+            } else {
+              onResponse(json);
+            }
           },
-          error => setTimeout(() => onError({ message: error.message, name: error.name }), 0)
+          error => onError({ message: error.message, name: error.name })
         );
     });
   }
