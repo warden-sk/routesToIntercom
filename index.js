@@ -6,23 +6,12 @@ const File = require('../helpers/File').default;
 const getAllRouteFilesFromDirectory = require('./helpers/getAllRouteFilesFromDirectory').default;
 const getAsyncFunction = require('./functionAsText/getAsyncFunction').default;
 const getRequestFunction = require('./functionAsText/getRequestFunction').default;
+const template = require('./template').default;
 const traverse = require('./helpers/traverse').default;
 const typeAsText = require('./helpers/typeAsText').default;
 const typescript = require('typescript');
 
-let text = `/*
- * Copyright 2023 Marek Kobida
- */
-
-import type { Account } from '../../server/storages/AccountStorage';
-import type { Category } from '../../server/storages/CategoryStorage';
-import type { TransformedApplication } from '../../server/transformers/transformApplication';
-import type { TransformedApplicationVersion } from '../../server/transformers/transformApplicationVersion';
-
-class Intercom {
-  static VERSION = '1.0.0+${+new Date()}';
-
-`;
+let text = '';
 
 (async () => {
   await getAllRouteFilesFromDirectory(
@@ -87,10 +76,6 @@ class Intercom {
   );
 
   text += getRequestFunction();
-  text += `}
 
-export default Intercom;
-`;
-
-  await new File('./public/Intercom.ts').writeFile(text);
+  await new File('./public/Intercom.ts').writeFile(template(text));
 })();
