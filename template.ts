@@ -61,8 +61,42 @@ ${getSendRequestFunction()}
     Σ(
       latencies.reduce((n, latency) => n + latency, 0),
       n => n / latencies.length,
-      n => this.setIntercomState({ clientVersion: this.#clientVersion, history: this.#history, latencies, latency: n })
+      n => this.setIntercomState({ clientVersion: this.#clientVersion, history: this.#history, latencies, latency: n }),
     );
+  }
+
+  #use<T>(url: string): T {
+    const [error, setError] = React.useState<{ message: string; name: string }>();
+    const [isFetching, setIsFetching] = React.useState<boolean>(false);
+
+    const abortController = new AbortController();
+
+    // @ts-ignore
+    const $ = async (parameters, httpMethod, httpBody) => {
+      const request = this.#getRequest(url, httpMethod, parameters, abortController, httpBody);
+
+      setIsFetching(true);
+
+      return this.#sendRequest(...request).then(
+        response => {
+          setIsFetching(false);
+
+          return response;
+        },
+        error => {
+          setError(error);
+          setIsFetching(false);
+
+          throw error;
+        },
+      );
+    };
+
+    $.abort = () => abortController.abort();
+    $.error = error;
+    $.isFetching = isFetching;
+
+    return $ as T;
   }
 }
 
