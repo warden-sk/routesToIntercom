@@ -72,8 +72,8 @@ ${getSendRequestFunction()}
     const abortController = new AbortController();
 
     // @ts-ignore
-    const $ = async (parameters, httpMethod, httpBody) => {
-      const request = this.#getRequest(url, httpMethod, parameters, abortController, httpBody);
+    const $ = async (parameters, method, body) => {
+      const request = this.#getRequest(url, method, parameters, abortController, body);
 
       setIsFetching(true);
 
