@@ -7,12 +7,12 @@ function getRequestFunction(): string {
     url: string,
     method = 'GET',
     $: { [left: string]: string | undefined } = {},
-    signal: AbortSignal,
+    abortController: AbortController,
     body?: string,
   ): [Request, number] {
     const requestId = this.#history.length ? this.#history[0]!.id + 1 : 0;
 
-    signal.addEventListener('abort', () => {
+    abortController.signal.addEventListener('abort', () => {
       this.#history = this.#history.map($ => ($.id === requestId ? { ...$, state: $.latency ? $.state : 2 } : $));
 
       this.#update();
@@ -30,7 +30,7 @@ function getRequestFunction(): string {
 
     const headers = new Headers({ Accept: 'application/json', 'Intercom-Version': this.VERSION });
 
-    const request = new Request(url, { body, credentials: 'include', headers, method, signal });
+    const request = new Request(url, { body, credentials: 'include', headers, method, signal: abortController.signal });
 
     return [request, requestId];
   }`;
