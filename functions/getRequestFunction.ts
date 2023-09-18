@@ -6,20 +6,23 @@ function getRequestFunction(): string {
   return `  #getRequest(
     url: string,
     method = 'GET',
-    $: { [left: string]: string | undefined } = {},
+    parameters: { [left: string]: string | undefined } = {},
     abortController: AbortController,
     body?: string,
   ): [Request, number] {
     const requestId = this.#history.length ? this.#history[0]!.id + 1 : 0;
 
-    abortController.signal.addEventListener('abort', () => {
-      this.#history = this.#history.map($ => ($.id === requestId ? { ...$, state: $.latency ? $.state : 2 } : $));
+    abortController.signal.addEventListener(
+      'abort',
+      /**/ () => {
+        this.#history = this.#history.map($ => ($.id === requestId ? { ...$, state: $.latency ? $.state : 2 } : $));
 
-      this.#update();
-    });
+        this.#update();
+      },
+    );
 
-    for (const left of Object.keys($)) {
-      const right = $[left];
+    for (const left of Object.keys(parameters)) {
+      const right = parameters[left];
 
       if (right) {
         url = url.replace(new RegExp(\`/:\${left}\\\\??\`), \`/\${right}\`);
