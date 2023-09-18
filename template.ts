@@ -5,7 +5,7 @@
 import getRequestFunction from './functions/getRequestFunction';
 import getSendRequestFunction from './functions/getSendRequestFunction';
 
-function template(text: string): string {
+function template(text: string, types: string): string {
   return `/*
  * Copyright 2023 Marek Kobida
  */
@@ -35,6 +35,8 @@ export interface IntercomState {
   latencies: number[];
   latency: number;
 }
+
+${types}
 
 class Intercom {
   readonly UPDATED_AT = ${+new Date()};
