@@ -53,7 +53,7 @@ function getPattern({ declarationList }: ts.VariableStatement): O {
   return {
     parameters,
     parent: parsedCallExpression,
-    url: `https://beta-server.redred.sk${parsedCallExpression.arguments[0].text}`,
+    url: `https://server.redred.app${parsedCallExpression.arguments[0].text}`,
   };
 }
 
