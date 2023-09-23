@@ -10,6 +10,7 @@ function template(text: string, types: string): string {
  * Copyright 2023 Marek Kobida
  */
 
+import IFrameIntercom from '@intercom/IFrameIntercom';
 import React from 'react';
 import type { CategoryRow } from '@intercom/types';
 import type { ConversationMessageRow } from '@intercom/types';
@@ -41,6 +42,8 @@ ${types}
 class Intercom {
   readonly UPDATED_AT = ${+new Date()};
   readonly VERSION = '2.0.0+${+new Date()}';
+
+  IFrame = new IFrameIntercom();
 
   #clientVersion?: string;
   #history: IntercomHistoryRow[] = [];
