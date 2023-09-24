@@ -13,6 +13,7 @@ const files = [
   /* categoryRoute */ '/Users/marekkobida/Documents/warden/leopold/server/routes/category/categoryRoute.ts',
   /* conversationMessageRoute */ '/Users/marekkobida/Documents/warden/leopold/server/routes/conversation/conversationMessageRoute.ts',
   /* countryRoute */ '/Users/marekkobida/Documents/warden/leopold/server/routes/countryRoute.ts',
+  /* mailRoute */ '/Users/marekkobida/Documents/warden/leopold/server/routes/mailRoute.ts',
   /* meConversationRoute */ '/Users/marekkobida/Documents/warden/leopold/server/routes/me/meConversationRoute.ts',
   /* meFriendRequestRoute */ '/Users/marekkobida/Documents/warden/leopold/server/routes/me/meFriendRequestRoute.ts',
   /* meRoute */ '/Users/marekkobida/Documents/warden/leopold/server/routes/me/meRoute.ts',
