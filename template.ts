@@ -10,7 +10,7 @@ function template(text: string, types: string): string {
  * Copyright 2023 Marek Kobida
  */
 
-import IFrameIntercom from '@intercom/IFrameIntercom';
+import IFrame from '@intercom/IFrame';
 import React from 'react';
 import type { CategoryRow } from '@intercom/types';
 import type { ConversationMessageRow } from '@intercom/types';
@@ -21,6 +21,14 @@ import type { TransformedAccountRow } from '@intercom/types';
 import type { TransformedApplicationRow } from '@intercom/types';
 import type { TransformedApplicationVersionRow } from '@intercom/types';
 import type { TransformedConversationMessageRow } from '@intercom/types';
+
+export interface GetRequestOptions {
+  abortController: AbortController;
+  body?: string;
+  method?: string;
+  parameters?: { [parameterName: string]: string | undefined };
+  url: string;
+}
 
 export interface IntercomHistoryRow {
   id: number;
@@ -40,10 +48,10 @@ export interface IntercomState {
 ${types}
 
 class Intercom {
+  IFrame = new IFrame();
+
   readonly UPDATED_AT = ${+new Date()};
   readonly VERSION = '2.0.0+${+new Date()}';
-
-  IFrame = new IFrameIntercom();
 
   #clientVersion?: string;
   #history: IntercomHistoryRow[] = [];
@@ -59,16 +67,11 @@ ${getRequestFunction()}
 ${getSendRequestFunction()}
 
   #update() {
-    const latencies = this.#history.reduce<number[]>(($, { latency }) => (latency ? [...$, latency] : $), []);
+    const latencies = this.#history.reduce<number[]>((n, { latency }) => (latency ? [...n, latency] : n), []);
 
-    const n = latencies.reduce((n, latency) => n + latency, 0);
+    const latency = latencies.reduce((n, latency) => n + latency, 0) / latencies.length;
 
-    this.setIntercomState({
-      clientVersion: this.#clientVersion,
-      history: this.#history,
-      latencies,
-      latency: n / latencies.length,
-    });
+    this.setIntercomState({ clientVersion: this.#clientVersion, history: this.#history, latencies, latency });
   }
 
   #use<T>(url: string): T {
@@ -79,7 +82,7 @@ ${getSendRequestFunction()}
 
     // @ts-ignore
     const $ = async (parameters, method, body) => {
-      const request = this.#getRequest(url, method, parameters, abortController, body);
+      const request = this.#getRequest({ abortController, body, method, parameters, url });
 
       setIsFetching(true);
 

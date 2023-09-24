@@ -3,13 +3,9 @@
  */
 
 function getRequestFunction(): string {
-  return `  #getRequest(
-    url: string,
-    method = 'GET',
-    parameters: { [left: string]: string | undefined } = {},
-    abortController: AbortController,
-    body?: string,
-  ): [Request, number] {
+  return `  #getRequest(options: GetRequestOptions): [Request, number] {
+    let { abortController, body, method = 'GET', parameters = {}, url } = options;
+
     const requestId = this.#history.length ? this.#history[0]!.id + 1 : 0;
 
     abortController.signal.addEventListener(
@@ -21,13 +17,13 @@ function getRequestFunction(): string {
       },
     );
 
-    for (const left of Object.keys(parameters)) {
-      const right = parameters[left];
+    for (const parameterName of Object.keys(parameters)) {
+      const parameter = parameters[parameterName];
 
-      if (right) {
-        url = url.replace(new RegExp(\`/:\${left}\\\\??\`), \`/\${right}\`);
+      if (parameter) {
+        url = url.replace(new RegExp(\`/:\${parameterName}\\\\??\`), \`/\${parameter}\`);
       } else {
-        url = url.replace(new RegExp(\`/:\${left}\\\\??\`), '');
+        url = url.replace(new RegExp(\`/:\${parameterName}\\\\??\`), '');
       }
     }
 
