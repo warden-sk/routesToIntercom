@@ -16,6 +16,7 @@ import type { CategoryRow } from '@intercom/types';
 import type { ConversationMessageRow } from '@intercom/types';
 import type { ConversationRow } from '@intercom/types';
 import type { CountryRow } from '@intercom/types';
+import type { MailRow } from '@intercom/types';
 import type { TransformedAccountRow } from '@intercom/types';
 import type { TransformedApplicationRow } from '@intercom/types';
 import type { TransformedApplicationVersionRow } from '@intercom/types';
