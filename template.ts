@@ -21,7 +21,6 @@ import type { TransformedAccountRow } from '@intercom/types';
 import type { TransformedApplicationRow } from '@intercom/types';
 import type { TransformedApplicationVersionRow } from '@intercom/types';
 import type { TransformedConversationMessageRow } from '@intercom/types';
-import Σ from '@helpers/Σ';
 
 export interface IntercomHistoryRow {
   id: number;
@@ -62,11 +61,14 @@ ${getSendRequestFunction()}
   #update() {
     const latencies = this.#history.reduce<number[]>(($, { latency }) => (latency ? [...$, latency] : $), []);
 
-    Σ(
-      latencies.reduce((n, latency) => n + latency, 0),
-      n => n / latencies.length,
-      n => this.setIntercomState({ clientVersion: this.#clientVersion, history: this.#history, latencies, latency: n }),
-    );
+    const n = latencies.reduce((n, latency) => n + latency, 0);
+
+    this.setIntercomState({
+      clientVersion: this.#clientVersion,
+      history: this.#history,
+      latencies,
+      latency: n / latencies.length,
+    });
   }
 
   #use<T>(url: string): T {
