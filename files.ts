@@ -10,6 +10,7 @@ const files = [
   /* applicationSubscribeRoute */ '/Users/marekkobida/Documents/warden/leopold/server/routes/application/applicationSubscribeRoute.ts',
   /* applicationUnsubscribeRoute */ '/Users/marekkobida/Documents/warden/leopold/server/routes/application/applicationUnsubscribeRoute.ts',
   /* applicationVersionRoute */ '/Users/marekkobida/Documents/warden/leopold/server/routes/application/applicationVersionRoute.ts',
+  /* campaignRoute */ '/Users/marekkobida/Documents/warden/leopold/server/routes/campaignRoute.ts',
   /* categoryRoute */ '/Users/marekkobida/Documents/warden/leopold/server/routes/category/categoryRoute.ts',
   /* conversationMessageRoute */ '/Users/marekkobida/Documents/warden/leopold/server/routes/conversation/conversationMessageRoute.ts',
   /* countryRoute */ '/Users/marekkobida/Documents/warden/leopold/server/routes/countryRoute.ts',
