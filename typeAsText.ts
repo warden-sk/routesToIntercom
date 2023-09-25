@@ -14,7 +14,7 @@ function typeAsText($: ParseArgumentOutput): string {
   }
 
   if ($.kind === 'ParenthesizedType') {
-    return typeAsText($.of);
+    return `(${typeAsText($.of)})`;
   }
 
   if ($.kind === 'StringKeyword') {

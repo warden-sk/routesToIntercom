@@ -11,9 +11,8 @@ function template(text: string, types: string): string {
  */
 
 import IFrame from '@intercom/IFrame';
-import React from 'react';
+import type { CampaignRow } from '@intercom/types';
 import type { CategoryRow } from '@intercom/types';
-import type { ConversationMessageRow } from '@intercom/types';
 import type { ConversationRow } from '@intercom/types';
 import type { CountryRow } from '@intercom/types';
 import type { MailRow } from '@intercom/types';
@@ -21,10 +20,11 @@ import type { TransformedAccountRow } from '@intercom/types';
 import type { TransformedApplicationRow } from '@intercom/types';
 import type { TransformedApplicationVersionRow } from '@intercom/types';
 import type { TransformedConversationMessageRow } from '@intercom/types';
+import React from 'react';
 
 export interface GetRequestOptions {
   abortController: AbortController;
-  body?: string;
+  json?: unknown;
   method?: string;
   parameters?: { [parameterName: string]: string | undefined };
   url: string;
@@ -81,8 +81,8 @@ ${getSendRequestFunction()}
     const abortController = new AbortController();
 
     // @ts-ignore
-    const $ = async (parameters, method, body) => {
-      const request = this.#getRequest({ abortController, body, method, parameters, url });
+    const $ = async (parameters, method, json) => {
+      const request = this.#getRequest({ abortController, json, method, parameters, url });
 
       setIsFetching(true);
 

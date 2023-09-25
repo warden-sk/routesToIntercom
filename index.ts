@@ -25,8 +25,6 @@ function capitalize(text: string): string {
     })
     .sort((a, b) => a[1].localeCompare(b[1], 'sk'));
 
-  console.log(files);
-
   for (const [filePath] of files) {
     const output = await parseFile(filePath);
 
@@ -42,7 +40,7 @@ function capitalize(text: string): string {
         const httpMethod = route.httpMethod;
         const httpResponseType = `Promise<${route.httpResponseType}>`;
 
-        return [...$, `  (parameters?: ${parameters}, method?: '${httpMethod}', body?: string): ${httpResponseType};`];
+        return [...$, `  (parameters?: ${parameters}, method?: '${httpMethod}', json?: unknown): ${httpResponseType};`];
       },
       /**/ [],
     );
