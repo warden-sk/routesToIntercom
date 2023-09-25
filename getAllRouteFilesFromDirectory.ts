@@ -5,7 +5,10 @@
 import type { DirectoryTree } from '@helpers/getDirectoryTree';
 import getDirectoryTree from '@helpers/getDirectoryTree';
 
-async function getAllRouteFilesFromDirectory(directoryPath: string, onRouteFile: (routeFilePath: string) => void) {
+// dokončiť toto je súbor ktorý som nekontroloval
+async function getAllRouteFilesFromDirectory(directoryPath: string): Promise<string[]> {
+  const output: string[] = [];
+
   const directoryTree = await getDirectoryTree(directoryPath);
 
   async function traverseTree($: DirectoryTree) {
@@ -16,13 +19,15 @@ async function getAllRouteFilesFromDirectory(directoryPath: string, onRouteFile:
     }
 
     if ($.type === 'file') {
-      if (!/(\.test|index)\.ts/.test($.path)) {
-        onRouteFile($.path);
+      if (!/(\.test|index|testRoute)\.ts/.test($.path)) {
+        output.push($.path);
       }
     }
   }
 
   await traverseTree(directoryTree!);
+
+  return output;
 }
 
 export default getAllRouteFilesFromDirectory;
