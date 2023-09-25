@@ -4,7 +4,7 @@
 
 import File from '@helpers/File';
 import parseFile from '.';
-import files from './files';
+import getAllRouteFilesFromDirectory from './getAllRouteFilesFromDirectory';
 import template from './template';
 
 function capitalize(text: string): string {
@@ -15,7 +15,7 @@ function capitalize(text: string): string {
   let __I__DONT__KNOW__1__: string[] = [];
   let __I__DONT__KNOW__3__: string[] = [];
 
-  for (const filePath of files) {
+  await getAllRouteFilesFromDirectory('/Users/marekkobida/Documents/warden/leopold/server/routes', async filePath => {
     const output = await parseFile(filePath);
 
     const parametersAsText = (withTypes: boolean): string =>
@@ -50,7 +50,7 @@ ${functions.join('\n')}
   isFetching: boolean;
 }`,
     ];
-  }
+  });
 
   new File('/Users/marekkobida/Documents/warden/leopold/intercom/Intercom.ts')
     /**/ .writeFile(template(__I__DONT__KNOW__1__.join('\n\n'), __I__DONT__KNOW__3__.join('\n\n')));
