@@ -11,10 +11,10 @@ function template(text: string, types: string): string {
  */
 
 import IFrame from '@intercom/IFrame';
-import type { CampaignRow } from '@intercom/types';
 import type { CategoryRow } from '@intercom/types';
 import type { ConversationRow } from '@intercom/types';
 import type { CountryRow } from '@intercom/types';
+import type { MailCampaignRow } from '@intercom/types';
 import type { MailRow } from '@intercom/types';
 import type { TransformedAccountRow } from '@intercom/types';
 import type { TransformedApplicationRow } from '@intercom/types';
