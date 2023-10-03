@@ -17,7 +17,9 @@ function capitalize(text: string): string {
   let __I__DONT__KNOW__3__: string[] = [];
 
   // dokončiť toto je novinka ktorú som neskontroloval
-  const files = (await getAllRouteFilesFromDirectory('/Users/marekkobida/Documents/warden/leopold/server/routes'))
+  const files = (
+    await getAllRouteFilesFromDirectory('/Users/marekkobida/Documents/warden/leopold/server/routes/server')
+  )
     .map(filePath => {
       const FILE_NAME_PATTERN = /([^/]+)\.ts$/;
       const [, fileName] = FILE_NAME_PATTERN.exec(filePath) ?? [];

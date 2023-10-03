@@ -15,6 +15,8 @@ import type { CategoryRow } from '@intercom/types';
 import type { ConversationRow } from '@intercom/types';
 import type { CountryRow } from '@intercom/types';
 import type { MailCampaignRow } from '@intercom/types';
+import type { DirectoryRow } from '@intercom/types';
+import type { FileRow } from '@intercom/types';
 import type { MailRow } from '@intercom/types';
 import type { TransformedAccountRow } from '@intercom/types';
 import type { TransformedApplicationRow } from '@intercom/types';

@@ -19,7 +19,7 @@ async function getAllRouteFilesFromDirectory(directoryPath: string): Promise<str
     }
 
     if ($.type === 'file') {
-      if (!/(\.test|index|testRoute)\.ts/.test($.path)) {
+      if (!/(\.test|index)\.ts/.test($.path)) {
         output.push($.path);
       }
     }
