@@ -26,7 +26,7 @@ import React from 'react';
 
 export interface GetRequestOptions {
   abortController: AbortController;
-  json?: unknown;
+  body?: unknown;
   method?: string;
   parameters?: { [parameterName: string]: string | undefined };
   url: string;
@@ -83,8 +83,8 @@ ${getSendRequestFunction()}
     const abortController = new AbortController();
 
     // @ts-ignore
-    const $ = async (parameters, method, json) => {
-      const request = this.#getRequest({ abortController, json, method, parameters, url });
+    const $ = async (parameters, method, body) => {
+      const request = this.#getRequest({ abortController, body, method, parameters, url });
 
       setIsFetching(true);
 
