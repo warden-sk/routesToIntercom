@@ -15,11 +15,8 @@ import type { CategoryRow } from '@intercom/types';
 import type { ConversationRow } from '@intercom/types';
 import type { CountryRow } from '@intercom/types';
 import type { MailCampaignRow } from '@intercom/types';
-<<<<<<< HEAD
 import type { DirectoryRow } from '@intercom/types';
 import type { FileRow } from '@intercom/types';
-=======
->>>>>>> origin/main
 import type { MailRow } from '@intercom/types';
 import type { TransformedAccountRow } from '@intercom/types';
 import type { TransformedApplicationRow } from '@intercom/types';
@@ -29,11 +26,7 @@ import React from 'react';
 
 export interface GetRequestOptions {
   abortController: AbortController;
-<<<<<<< HEAD
   body?: unknown;
-=======
-  json?: unknown;
->>>>>>> origin/main
   method?: string;
   parameters?: { [parameterName: string]: string | undefined };
   url: string;
@@ -90,8 +83,8 @@ ${getSendRequestFunction()}
     const abortController = new AbortController();
 
     // @ts-ignore
-    const $ = async (parameters, method, json) => {
-      const request = this.#getRequest({ abortController, json, method, parameters, url });
+    const $ = async (parameters, method, body) => {
+      const request = this.#getRequest({ abortController, body, method, parameters, url });
 
       setIsFetching(true);
 

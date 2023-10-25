@@ -42,11 +42,7 @@ function capitalize(text: string): string {
         const httpMethod = route.httpMethod;
         const httpResponseType = `Promise<${route.httpResponseType}>`;
 
-<<<<<<< HEAD
         return [...$, `  (parameters?: ${parameters}, method?: '${httpMethod}', body?: unknown): ${httpResponseType};`];
-=======
-        return [...$, `  (parameters?: ${parameters}, method?: '${httpMethod}', json?: unknown): ${httpResponseType};`];
->>>>>>> origin/main
       },
       /**/ [],
     );
