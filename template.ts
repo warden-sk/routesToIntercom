@@ -1,5 +1,6 @@
 /*
- * Copyright 2023 Marek Kobida
+ * Copyright 2024 Marek Kobida
+ * Last Updated: 26.06.2024
  */
 
 import getRequestFunction from './functions/getRequestFunction';
@@ -7,45 +8,39 @@ import getSendRequestFunction from './functions/getSendRequestFunction';
 
 function template(text: string, types: string): string {
   return `/*
- * Copyright 2023 Marek Kobida
+ * Copyright 2024 Marek Kobida
  */
 
 import IFrame from '@intercom/IFrame';
-import type { CategoryRow } from '@intercom/types';
-import type { ConversationRow } from '@intercom/types';
-import type { CountryRow } from '@intercom/types';
-import type { MailCampaignRow } from '@intercom/types';
-import type { DirectoryRow } from '@intercom/types';
-import type { FileRow } from '@intercom/types';
-import type { MailRow } from '@intercom/types';
-import type { TransformedAccountRow } from '@intercom/types';
-import type { TransformedApplicationRow } from '@intercom/types';
-import type { TransformedApplicationVersionRow } from '@intercom/types';
-import type { TransformedConversationMessageRow } from '@intercom/types';
 import React from 'react';
+import type {
+  CategoryRow,
+  ConversationRow,
+  CountryRow,
+  DirectoryRow,
+  FileRow,
+  MailRow,
+  TransformedAccountRow,
+  TransformedApplicationRow,
+  TransformedApplicationVersionRow,
+  TransformedConversationMessageRow,
+  TransformedMailCampaignRow,
+} from '@intercom/types';
 
-export interface GetRequestOptions {
-  abortController: AbortController;
-  body?: unknown;
-  method?: string;
-  parameters?: { [parameterName: string]: string | undefined };
-  url: string;
-}
-
-export interface IntercomHistoryRow {
+export type IntercomHistoryRow = {
   id: number;
   latency?: number;
   request: Request;
   response?: unknown;
   state: number;
-}
+};
 
-export interface IntercomState {
+export type IntercomState = {
   clientVersion?: string;
   history: IntercomHistoryRow[];
   latencies: number[];
   latency: number;
-}
+};
 
 ${types}
 
@@ -56,7 +51,7 @@ class Intercom {
   readonly VERSION = '2.0.0+${+new Date()}';
 
   #clientVersion?: string;
-  #history: IntercomHistoryRow[] = [];
+  history: IntercomHistoryRow[] = [];
 
   constructor(public setIntercomState: (intercomState: IntercomState) => void) {
     console.log('[Intercom]', this.VERSION);
@@ -68,12 +63,12 @@ ${getRequestFunction()}
 
 ${getSendRequestFunction()}
 
-  #update() {
-    const latencies = this.#history.reduce<number[]>((n, { latency }) => (latency ? [...n, latency] : n), []);
+  update() {
+    const latencies = this.history.reduce<number[]>((n, { latency }) => (latency ? [...n, latency] : n), []);
 
     const latency = latencies.reduce((n, latency) => n + latency, 0) / latencies.length;
 
-    this.setIntercomState({ clientVersion: this.#clientVersion, history: this.#history, latencies, latency });
+    this.setIntercomState({ clientVersion: this.#clientVersion, history: this.history, latencies, latency });
   }
 
   #use<T>(url: string): T {
@@ -84,11 +79,11 @@ ${getSendRequestFunction()}
 
     // @ts-ignore
     const $ = async (parameters, method, body) => {
-      const request = this.#getRequest({ abortController, body, method, parameters, url });
+      const request = this.getRequest({ abortController, body, method, parameters, url });
 
       setIsFetching(true);
 
-      return this.#sendRequest(...request).then(
+      return this.sendRequest(...request).then(
         response => {
           setIsFetching(false);
 
