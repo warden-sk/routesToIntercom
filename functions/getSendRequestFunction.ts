@@ -4,7 +4,7 @@
  */
 
 function getSendRequestFunction(): string {
-  return `  async sendRequest<T>(request: Request, requestId: number): Promise<T> {
+  return `  async sendRequest<ResponseType>(request: Request, requestId: number): Promise<ResponseType> {
     let latency = +new Date(); /* (1) */
 
     this.history = [{ id: requestId, request, state: 0 }, ...this.history];
@@ -15,9 +15,7 @@ function getSendRequestFunction(): string {
     latency = +new Date() - latency; /* (2) */
 
     if (response.headers.has('Client-Version')) {
-      const clientVersion = response.headers.get('Client-Version')!;
-
-      this.#clientVersion = clientVersion;
+      this.clientVersion = response.headers.get('Client-Version')!;
     }
 
     const json = await response.json();

@@ -12,7 +12,7 @@ import template from './template';
   const functionDefinitions: string[] = [],
     typeDefinitions: string[] = [];
 
-  for (const [typeName, filePath] of files) {
+  for (const [filePath, fileId] of files) {
     const parsedFile = await parseFile(filePath);
 
     /**
@@ -34,7 +34,7 @@ import template from './template';
     );
 
     // language=ts
-    const typeDefinition = `type ${typeName} = {
+    const typeDefinition = `type ${fileId} = {
 ${formattedFunctionSignatures.join('\n')}
   abort: () => void;
   error?: { message: string; name: string };
@@ -46,8 +46,8 @@ ${formattedFunctionSignatures.join('\n')}
     /**
      * (3) FUNCTION DEFINITIONS
      */
-    functionDefinitions.push(`  ${parsedFile.fileName}(): ${typeName} {
-    return this.#use<${typeName}>('${parsedFile.pattern.url}');
+    functionDefinitions.push(`  ${parsedFile.fileName}(): ${fileId} {
+    return this.#use<${fileId}>('${parsedFile.pattern.url}');
   }`);
   }
 
