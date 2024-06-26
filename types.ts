@@ -1,70 +1,74 @@
 /*
- * Copyright 2023 Marek Kobida
+ * Copyright 2024 Marek Kobida
+ * Last Updated: 26.06.2024
  */
 
 import type ts from 'typescript';
 import type { GetPatternOutput } from './getPattern';
 import type { GetRouteOutput } from './getRoute';
 
-interface ArrayType {
+type ArrayType = {
   kind: 'ArrayType';
   of: ParseArgumentOutput;
-}
+};
 
-interface ArrowFunction {
+type ArrowFunction = {
   kind: 'ArrowFunction';
   typeArguments: ParseArgumentOutput[];
-}
+};
 
-interface Identifier {
+type Identifier = {
   kind: 'Identifier';
   text: string;
-}
+};
 
-interface IntersectionType {
+type IntersectionType = {
   kind: 'IntersectionType';
   of: ParseArgumentOutput[];
-}
+};
 
-interface ParenthesizedType {
+type ParenthesizedType = {
   kind: 'ParenthesizedType';
   of: ParseArgumentOutput;
-}
+};
 
-interface ParseFileOutput {
+type ParseFileOutput = {
   fileName: string;
   pattern: GetPatternOutput;
   routes: GetRouteOutput[];
-}
+};
 
-interface PropertySignature {
+type PropertySignature = {
   hasQuestionToken: boolean;
   kind: 'PropertySignature';
   name: string;
   of: ParseArgumentOutput;
-}
+};
 
-interface StringLiteral {
+type StringLiteral = {
   kind: 'StringLiteral';
   text: string;
-}
+};
 
-interface TypeLiteral {
+type TypeLiteral = {
   kind: 'TypeLiteral';
   of: ParseArgumentOutput[];
-}
+};
 
-interface TypeReference {
+type TypeReference = {
   kind: 'TypeReference';
   typeName: string;
-}
+};
 
-interface UnionType {
+type UnionType = {
   kind: 'UnionType';
   of: ParseArgumentOutput[];
-}
+};
 
-type ExcludeKeys =
+/* —————————————————————————————————————————————————————————————————————————————————————————————————————————————————— */
+
+type FilteredSyntaxKindKeys = Exclude<
+  SyntaxKindKeys,
   | 'ArrayType'
   | 'ArrowFunction'
   | 'Identifier'
@@ -74,9 +78,8 @@ type ExcludeKeys =
   | 'StringLiteral'
   | 'TypeLiteral'
   | 'TypeReference'
-  | 'UnionType';
-
-type FilteredSyntaxKindKeys = Exclude<SyntaxKindKeys, ExcludeKeys>;
+  | 'UnionType'
+>;
 
 type ParseArgumentOutput =
   | ArrayType

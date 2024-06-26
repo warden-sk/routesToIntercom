@@ -1,43 +1,33 @@
 /*
- * Copyright 2023 Marek Kobida
+ * Copyright 2024 Marek Kobida
+ * Last Updated: 26.06.2024
  */
 
 import type { ParseArgumentOutput } from './types';
 
 function typeAsText($: ParseArgumentOutput): string {
-  if ($.kind === 'ArrayType') {
-    return `${typeAsText($.of)}[]`;
-  }
-
-  if ($.kind === 'IntersectionType') {
-    return $.of.map(typeAsText).join(' & ');
-  }
-
-  if ($.kind === 'ParenthesizedType') {
-    return `(${typeAsText($.of)})`;
-  }
-
-  if ($.kind === 'StringKeyword') {
-    return 'string';
-  }
-
-  if ($.kind === 'TypeLiteral') {
-    function parseMember(member: ParseArgumentOutput) {
-      if (member.kind === 'PropertySignature') {
-        // `hasQuestionToken`
-        return [member.name, typeAsText(member.of)].join(': ');
+  switch ($.kind) {
+    case 'ArrayType':
+      return `${typeAsText($.of)}[]`;
+    case 'IntersectionType':
+      return $.of.map(typeAsText).join(' & ');
+    case 'ParenthesizedType':
+      return `(${typeAsText($.of)})`;
+    case 'StringKeyword':
+      return 'string';
+    case 'TypeLiteral':
+      function parseMember(member: ParseArgumentOutput) {
+        if (member.kind === 'PropertySignature') {
+          // `hasQuestionToken`
+          return [member.name, typeAsText(member.of)].join(': ');
+        }
       }
-    }
 
-    return `{ ${$.of.map(parseMember).join('; ')} }`;
-  }
-
-  if ($.kind === 'TypeReference') {
-    return $.typeName;
-  }
-
-  if ($.kind === 'UnionType') {
-    return $.of.map(typeAsText).join(' | ');
+      return `{ ${$.of.map(parseMember).join('; ')} }`;
+    case 'TypeReference':
+      return $.typeName;
+    case 'UnionType':
+      return $.of.map(typeAsText).join(' | ');
   }
 
   return $.kind;
