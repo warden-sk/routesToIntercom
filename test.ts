@@ -30,12 +30,11 @@ import template from './template';
      */
     const formattedFunctionSignatures = parsedFile.routes.map(
       route =>
-        `  (parameters?: ${formattedParameters}, method?: '${route.httpMethod}', body?: unknown): Promise<${route.httpResponseType}>;`,
+        `  (parameters?: ${formattedParameters}, method?: '${route.httpMethod}', body?: GetRequestInput['body']): Promise<${route.httpResponseType}>;`,
     );
 
     // language=ts
-    const typeDefinition = `// ${filePath}
-type ${fileId} = {
+    const typeDefinition = `type ${fileId} = {
 ${formattedFunctionSignatures.join('\n')}
   abort: () => void;
   error?: { message: string; name: string };

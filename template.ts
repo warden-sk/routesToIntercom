@@ -29,17 +29,17 @@ import type {
   TransformedMailCampaignRow,
 } from '@intercom/types';
 
-export type GetRequestInput = {
+type GetRequestInput = {
   abortController?: AbortController;
-  body?: ReadableStream;
+  body?: ReadableStream | string;
   method?: 'DELETE' | 'GET' | 'PATCH' | 'POST' | 'PUT';
   parameters?: Record<string, string | undefined>;
   url: string;
 };
 
-export type GetRequestOutput = [Request, number];
+type GetRequestOutput = [Request, number];
 
-export type IntercomHistoryRow = {
+type IntercomHistoryRow = {
   id: number;
   latency?: number;
   request: Request;
@@ -47,7 +47,7 @@ export type IntercomHistoryRow = {
   state: number;
 };
 
-export type IntercomState = {
+type IntercomState = {
   clientVersion?: string;
   history: IntercomHistoryRow[];
   latencies: number[];
@@ -79,6 +79,8 @@ ${getUpdateFunction()}
 
 ${getUseFunction()}
 }
+
+export type { GetRequestInput, GetRequestOutput, IntercomHistoryRow, IntercomState };
 
 export default Intercom;
 `;
