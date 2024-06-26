@@ -34,7 +34,8 @@ import template from './template';
     );
 
     // language=ts
-    const typeDefinition = `type ${fileId} = {
+    const typeDefinition = `// ${filePath}
+type ${fileId} = {
 ${formattedFunctionSignatures.join('\n')}
   abort: () => void;
   error?: { message: string; name: string };

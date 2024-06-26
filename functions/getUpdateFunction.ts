@@ -7,9 +7,15 @@ function getUpdateFunction(): string {
   return `  update() {
     const latencies = this.history.reduce<number[]>((n, { latency }) => (latency ? [...n, latency] : n), []);
 
+    // Výpočet priemernej latencie
     const latency = latencies.reduce<number>((n, latency) => n + latency, 0) / latencies.length;
 
-    this.setIntercomState({ clientVersion: this.clientVersion, history: this.history, latencies, latency });
+    this.setIntercomState({
+      clientVersion: this.clientVersion,
+      history: this.history,
+      latencies,
+      latency,
+    });
   }`;
 }
 

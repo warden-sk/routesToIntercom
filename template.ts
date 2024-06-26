@@ -29,6 +29,16 @@ import type {
   TransformedMailCampaignRow,
 } from '@intercom/types';
 
+export type GetRequestInput = {
+  abortController?: AbortController;
+  body?: ReadableStream;
+  method?: 'DELETE' | 'GET' | 'PATCH' | 'POST' | 'PUT';
+  parameters?: Record<string, string | undefined>;
+  url: string;
+};
+
+export type GetRequestOutput = [Request, number];
+
 export type IntercomHistoryRow = {
   id: number;
   latency?: number;
@@ -50,7 +60,7 @@ class Intercom {
   IFrame = new IFrame();
 
   readonly UPDATED_AT = ${+new Date()};
-  readonly VERSION = '2.0.0+${+new Date()}';
+  readonly VERSION = '3.0.0+${+new Date()}';
 
   clientVersion?: string;
   history: IntercomHistoryRow[] = [];

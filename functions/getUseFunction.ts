@@ -4,14 +4,17 @@
  */
 
 function getUseFunction(): string {
-  return `  #use<ResponseType>(url: string): ResponseType {
+  return `  #use<T>(url: string): T {
     const [error, setError] = React.useState<{ message: string; name: string }>();
     const [isFetching, setIsFetching] = React.useState<boolean>(false);
 
     const abortController = new AbortController();
 
-    // @ts-ignore
-    const $ = async (parameters, method, body) => {
+    const $ = async (
+      parameters?: GetRequestInput['parameters'],
+      method?: GetRequestInput['method'],
+      body?: GetRequestInput['body'],
+    ) => {
       const [request, requestId] = this.getRequest({ abortController, body, method, parameters, url });
 
       setIsFetching(true);
@@ -35,7 +38,7 @@ function getUseFunction(): string {
     $.error = error;
     $.isFetching = isFetching;
 
-    return $ as ResponseType;
+    return $ as T;
   }`;
 }
 
