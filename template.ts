@@ -5,10 +5,10 @@
 
 import getRequestFunction from './functions/getRequestFunction';
 import getSendRequestFunction from './functions/getSendRequestFunction';
-import getUseFunction from './functions/getUseFunction';
 import getUpdateFunction from './functions/getUpdateFunction';
+import getUseFunction from './functions/getUseFunction';
 
-function template(text: string, types: string): string {
+function template(functionDefinitions: string, typeDefinitions: string): string {
   return `/*
  * Copyright 2024 Marek Kobida
  */
@@ -54,7 +54,7 @@ type IntercomState = {
   latency: number;
 };
 
-${types}
+${typeDefinitions}
 
 class Intercom {
   IFrame = new IFrame();
@@ -69,7 +69,7 @@ class Intercom {
     console.log('[Intercom]', this.UPDATED_AT, this.VERSION);
   }
 
-${text}
+${functionDefinitions}
 
 ${getRequestFunction()}
 

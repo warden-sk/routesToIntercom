@@ -4,7 +4,7 @@
  */
 
 import files from './files';
-import fs from 'node:fs';
+import node from '@helpers/node';
 import parseFile from './parseFile';
 import template from './template';
 
@@ -16,26 +16,30 @@ import template from './template';
     const parsedFile = await parseFile(filePath);
 
     /**
-     * (1) TYPE DEFINITION PARAMETERS
+     * (1) FUNCTION SIGNATURE PARAMETERS
      */
-    const formatParameterList = (hasTypes: boolean): string =>
+    const formatParameterList = (hasType: boolean): string =>
       parsedFile.pattern.parameters
-        .map(([parameterName, parameterType]) => (hasTypes ? `${parameterName}${parameterType}` : parameterName))
+        .map(([parameterName, parameterType]) => (hasType ? `${parameterName}${parameterType}` : parameterName))
         .join(', ');
 
     const formattedParameters = parsedFile.pattern.parameters.length ? `{ ${formatParameterList(true)} }` : '{}';
 
     /**
-     * (2) TYPE DEFINITIONS
+     * (2) FUNCTION SIGNATURES
      */
     const formattedFunctionSignatures = parsedFile.routes.map(
       route =>
         `  (parameters?: ${formattedParameters}, method?: '${route.httpMethod}', body?: GetRequestInput['body']): Promise<${route.httpResponseType}>;`,
     );
 
+    /**
+     * (3) TYPE DEFINITIONS
+     */
     // language=ts
     const typeDefinition = `type ${fileId} = {
 ${formattedFunctionSignatures.join('\n')}
+
   abort: () => void;
   error?: { message: string; name: string };
   isFetching: boolean;
@@ -44,14 +48,14 @@ ${formattedFunctionSignatures.join('\n')}
     typeDefinitions.push(typeDefinition);
 
     /**
-     * (3) FUNCTION DEFINITIONS
+     * (4) FUNCTION DEFINITIONS
      */
     functionDefinitions.push(`  ${parsedFile.fileName}(): ${fileId} {
     return this.#use<${fileId}>('${parsedFile.pattern.url}');
   }`);
   }
 
-  fs.writeFileSync(
+  await node.writeFile(
     '/Users/marekkobida/Documents/warden/leopold/intercom/Intercom.new.ts',
     template(functionDefinitions.join('\n\n'), typeDefinitions.join('\n\n')),
   );

@@ -30,7 +30,13 @@ function getRequestFunction(): string {
 
     const headers = new Headers({ Accept: 'application/json', 'Intercom-Version': this.VERSION });
 
-    const request = new Request(url, { body, credentials: 'include', headers, method, signal: abortController?.signal });
+    const request = new Request(url, {
+      body,
+      credentials: 'include',
+      headers,
+      method,
+      signal: abortController?.signal,
+    });
 
     return [request, requestId];
   }`;
