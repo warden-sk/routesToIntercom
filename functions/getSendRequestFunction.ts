@@ -5,10 +5,10 @@
 
 function getSendRequestFunction(): string {
   return `  async #sendRequest<ResponseType>(request: Request, requestId: number): Promise<ResponseType> {
-    let latency = +new Date(); /* (1) */
-
     this.#history = [{ id: requestId, request, state: 0 }, ...this.#history];
     this.#update();
+
+    let latency = +new Date(); /* (1) */
 
     const response = await fetch(request);
 

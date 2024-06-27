@@ -6,7 +6,7 @@
 function getTransformUrlFunction(): string {
   return `  #transformUrl(parameters: Record<string, string | undefined>, url: string): string {
     return Object.keys(parameters).reduce(
-      ($, key) => $.replace(new RegExp(\`/:\${key}\\\\??\`), parameters[key] ? \`/\${parameters[key]}\` : ''),
+      (initialUrl, key) => initialUrl.replace(new RegExp(\`/:\${key}\\\\??\`), parameters[key] ? \`/\${parameters[key]}\` : ''),
       url,
     );
   }`;
