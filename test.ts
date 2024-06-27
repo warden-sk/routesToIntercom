@@ -1,19 +1,20 @@
 /*
  * Copyright 2024 Marek Kobida
- * Last Updated: 26.06.2024
+ * Last Updated: 27.06.2024
  */
 
 import files from './files';
 import node from '@helpers/node';
 import parseFile from './parseFile';
 import template from './template';
+import Σ from '@helpers/Σ';
 
 (async () => {
   const functionDefinitions: string[] = [],
     typeDefinitions: string[] = [];
 
-  for (const [filePath, fileId] of files) {
-    const parsedFile = await parseFile(filePath);
+  for (const i in files) {
+    const parsedFile = await Σ(files[i]!, parseFile);
 
     /**
      * (1) FUNCTION SIGNATURE PARAMETERS
@@ -37,7 +38,7 @@ import template from './template';
      * (3) TYPE DEFINITIONS
      */
     // language=ts
-    const typeDefinition = `type ${fileId} = {
+    const typeDefinition = `type T${i} = {
 ${formattedFunctionSignatures.join('\n')}
 
   abort: () => void;
@@ -50,8 +51,8 @@ ${formattedFunctionSignatures.join('\n')}
     /**
      * (4) FUNCTION DEFINITIONS
      */
-    functionDefinitions.push(`  ${parsedFile.fileName}(): ${fileId} {
-    return this.#use<${fileId}>('${parsedFile.pattern.url}');
+    functionDefinitions.push(`  ${parsedFile.fileName}(): T${i} {
+    return this.#use<T${i}>('${parsedFile.pattern.url}');
   }`);
   }
 

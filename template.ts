@@ -1,10 +1,11 @@
 /*
  * Copyright 2024 Marek Kobida
- * Last Updated: 26.06.2024
+ * Last Updated: 27.06.2024
  */
 
 import getRequestFunction from './functions/getRequestFunction';
 import getSendRequestFunction from './functions/getSendRequestFunction';
+import getTransformUrlFunction from './functions/getTransformUrlFunction';
 import getUpdateFunction from './functions/getUpdateFunction';
 import getUseFunction from './functions/getUseFunction';
 
@@ -62,8 +63,8 @@ class Intercom {
   readonly UPDATED_AT = ${+new Date()};
   readonly VERSION = '3.0.0+${+new Date()}';
 
-  clientVersion?: string;
-  history: IntercomHistoryRow[] = [];
+  #clientVersion?: string;
+  #history: IntercomHistoryRow[] = [];
 
   constructor(public setIntercomState: (intercomState: IntercomState) => void) {
     console.log('[Intercom]', this.UPDATED_AT, this.VERSION);
@@ -74,6 +75,8 @@ ${functionDefinitions}
 ${getRequestFunction()}
 
 ${getSendRequestFunction()}
+
+${getTransformUrlFunction()}
 
 ${getUpdateFunction()}
 

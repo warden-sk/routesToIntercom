@@ -1,6 +1,6 @@
 /*
  * Copyright 2024 Marek Kobida
- * Last Updated: 26.06.2024
+ * Last Updated: 27.06.2024
  */
 
 function getUseFunction(): string {
@@ -15,11 +15,19 @@ function getUseFunction(): string {
       method?: GetRequestInput['method'],
       body?: GetRequestInput['body'],
     ) => {
-      const [request, requestId] = this.getRequest({ abortController, body, method, parameters, url });
+      const [request, requestId] = this.#getRequest({ abortController, body, method, parameters, url });
+
+      abortController.signal.addEventListener('abort', () => {
+        this.#history = this.#history.map(row =>
+          row.id === requestId ? { ...row, state: row.latency ? row.state : 2 } : row,
+        );
+
+        this.#update();
+      });
 
       setIsFetching(true);
 
-      return this.sendRequest(request, requestId).then(
+      return this.#sendRequest(request, requestId).then(
         response => {
           setIsFetching(false);
 

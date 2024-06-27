@@ -13,17 +13,12 @@ function typeAsText($: ParseArgumentOutput): string {
       return $.of.map(typeAsText).join(' & ');
     case 'ParenthesizedType':
       return `(${typeAsText($.of)})`;
+    case 'PropertySignature':
+      return [$.name, typeAsText($.of)].join(': ');
     case 'StringKeyword':
       return 'string';
     case 'TypeLiteral':
-      function parseMember(member: ParseArgumentOutput) {
-        if (member.kind === 'PropertySignature') {
-          // `hasQuestionToken`
-          return [member.name, typeAsText(member.of)].join(': ');
-        }
-      }
-
-      return `{ ${$.of.map(parseMember).join('; ')} }`;
+      return `{ ${$.of.map(typeAsText).join('; ')} }`;
     case 'TypeReference':
       return $.typeName;
     case 'UnionType':
