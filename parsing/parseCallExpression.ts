@@ -47,10 +47,10 @@ function parseCallExpression(callExpression: ts.CallExpression): ParseCallExpres
    *        `- name              `- arguments[]
    */
   return {
-    arguments: callExpression.arguments.length ? callExpression.arguments.map(parseArgument) : [],
+    arguments: callExpression.arguments.map(parseArgument),
     kind: 'PropertyAccessExpression',
     name: propertyAccessExpression.name.text,
-    typeArguments: [],
+    typeArguments: callExpression.typeArguments ? callExpression.typeArguments.map(parseArgument) : [],
   };
 }
 

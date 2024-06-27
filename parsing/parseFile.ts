@@ -10,10 +10,8 @@ import node from '@helpers/node';
 import ts from 'typescript';
 import type { ParseFileOutput } from '../types';
 
-const FILE_NAME_PATTERN = /([^/]+)\.ts$/;
-
 async function parseFile(filePath: string): Promise<ParseFileOutput> {
-  const [, fileName] = FILE_NAME_PATTERN.exec(filePath) ?? [];
+  const [, fileName] = /([^/]+)\.ts$/.exec(filePath) ?? [];
 
   invariant(fileName, 'Expected a valid `.ts` file name.');
 
