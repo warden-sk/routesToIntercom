@@ -5,7 +5,7 @@
 
 import files from './files';
 import node from '@helpers/node';
-import parseFile from './parseFile';
+import parseFile from './parsing/parseFile';
 import template from './template';
 import Σ from '@helpers/Σ';
 

@@ -1,11 +1,11 @@
 /*
  * Copyright 2024 Marek Kobida
- * Last Updated: 26.06.2024
+ * Last Updated: 27.06.2024
  */
 
 import invariant from '@helpers/validation/invariant';
 import ts from 'typescript';
-import type { FilteredSyntaxKindKeys, ParseArgumentOutput } from './types';
+import type { FilteredSyntaxKindKeys, ParseArgumentOutput } from '../types';
 
 function parseArgument(argument: ts.Node): ParseArgumentOutput {
   if (ts.isArrayTypeNode(argument)) {

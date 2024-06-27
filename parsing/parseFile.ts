@@ -1,14 +1,14 @@
 /*
  * Copyright 2024 Marek Kobida
- * Last Updated: 26.06.2024
+ * Last Updated: 27.06.2024
  */
 
-import getPattern from './getPattern';
-import getRoutes from './getRoutes';
+import getPattern from '../getPattern';
+import getRoutes from '../getRoutes';
 import invariant from '@helpers/validation/invariant';
 import node from '@helpers/node';
 import ts from 'typescript';
-import type { ParseFileOutput } from './types';
+import type { ParseFileOutput } from '../types';
 
 const FILE_NAME_PATTERN = /([^/]+)\.ts$/;
 

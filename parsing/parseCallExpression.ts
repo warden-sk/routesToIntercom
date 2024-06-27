@@ -6,7 +6,7 @@
 import invariant from '@helpers/validation/invariant';
 import parseArgument from './parseArgument';
 import ts from 'typescript';
-import type { ParseArgumentOutput } from './types';
+import type { ParseArgumentOutput } from '../types';
 
 type ParseCallExpressionOutput = {
   arguments: ParseArgumentOutput[];

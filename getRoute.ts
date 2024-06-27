@@ -4,8 +4,8 @@
  */
 
 import invariant from '@helpers/validation/invariant';
-import type { ParseCallExpressionOutput } from './parseCallExpression';
-import parseCallExpression from './parseCallExpression';
+import type { ParseCallExpressionOutput } from './parsing/parseCallExpression';
+import parseCallExpression from './parsing/parseCallExpression';
 import type ts from 'typescript';
 import typeAsText from './typeAsText';
 
