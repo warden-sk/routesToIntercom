@@ -4,9 +4,7 @@
  */
 
 function getRequestFunction(): string {
-  return `  #getRequest(input: GetRequestInput): GetRequestOutput {
-    let { abortController, body, method = 'GET', parameters = {}, url } = input;
-
+  return `  #getRequest({ abortController, body, method = 'GET', parameters = {}, url }: GetRequestInput): GetRequestOutput {
     const headers = new Headers({ Accept: 'application/json', 'Intercom-Version': this.VERSION });
 
     const request = new Request(this.#transformUrl(parameters, url), {

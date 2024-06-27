@@ -38,12 +38,8 @@ import Σ from '@helpers/Σ';
      * (3) TYPE DEFINITIONS
      */
     // language=ts
-    const typeDefinition = `type T${i} = {
+    const typeDefinition = `type T${i} = T & {
 ${formattedFunctionSignatures.join('\n')}
-
-  abort: () => void;
-  error?: { message: string; name: string };
-  isFetching: boolean;
 };`;
 
     typeDefinitions.push(typeDefinition);

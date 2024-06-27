@@ -55,7 +55,17 @@ type IntercomState = {
   latency: number;
 };
 
+/* —————————————————————————————————————————————————————————————————————————————————————————————————————————————————— */
+
+type T = {
+  abort: () => void;
+  error?: { message: string; name: string };
+  isFetching: boolean;
+};
+
 ${typeDefinitions}
+
+/* —————————————————————————————————————————————————————————————————————————————————————————————————————————————————— */
 
 class Intercom {
   IFrame = new IFrame();
@@ -66,11 +76,15 @@ class Intercom {
   #clientVersion?: string;
   #history: IntercomHistoryRow[] = [];
 
-  constructor(public setIntercomState: (intercomState: IntercomState) => void) {
+  constructor(private setIntercomState: (intercomState: IntercomState) => void) {
     console.log('[Intercom]', this.UPDATED_AT, this.VERSION);
   }
 
+/* —————————————————————————————————————————————————————————————————————————————————————————————————————————————————— */
+
 ${functionDefinitions}
+
+/* —————————————————————————————————————————————————————————————————————————————————————————————————————————————————— */
 
 ${getRequestFunction()}
 
