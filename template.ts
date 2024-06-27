@@ -35,10 +35,11 @@ type GetRequestInput = {
   body?: ReadableStream | string;
   method?: 'DELETE' | 'GET' | 'PATCH' | 'POST' | 'PUT';
   parameters?: Record<string, string | undefined>;
+
   url: string;
 };
 
-type GetRequestOutput = [Request, number];
+type GetRequestOutput = [request: Request, requestId: number];
 
 type IntercomHistoryRow = {
   id: number;
