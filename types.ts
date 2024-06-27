@@ -1,6 +1,6 @@
 /*
  * Copyright 2024 Marek Kobida
- * Last Updated: 26.06.2024
+ * Last Updated: 27.06.2024
  */
 
 import type ts from 'typescript';
@@ -14,7 +14,7 @@ type ArrayType = {
 
 type ArrowFunction = {
   kind: 'ArrowFunction';
-  typeArguments: ParseArgumentOutput[];
+  type?: ParseArgumentOutput;
 };
 
 type Identifier = {
@@ -57,6 +57,7 @@ type TypeLiteral = {
 
 type TypeReference = {
   kind: 'TypeReference';
+  typeArguments: ParseArgumentOutput[];
   typeName: string;
 };
 
@@ -96,4 +97,4 @@ type ParseArgumentOutput =
 
 type SyntaxKindKeys = keyof typeof ts.SyntaxKind;
 
-export type { FilteredSyntaxKindKeys, ParseArgumentOutput, ParseFileOutput, TypeLiteral };
+export type { FilteredSyntaxKindKeys, ParseArgumentOutput, ParseFileOutput };
