@@ -1,21 +1,19 @@
 /*
- * Copyright 2023 Marek Kobida
+ * Copyright 2024 Marek Kobida
+ * Last Updated: 27.06.2024
  */
 
 import invariant from '@helpers/validation/invariant';
-import ts from 'typescript';
-import type { ParseCallExpressionOutput } from './parseCallExpression';
 import parseCallExpression from './parseCallExpression';
+import ts from 'typescript';
 import typeAsText from './typeAsText';
-import type { TypeLiteral } from './types';
 
-interface O {
+type GetPatternOutput = {
   parameters: [string, string][];
-  parent: ParseCallExpressionOutput;
   url: string;
-}
+};
 
-function getPattern({ declarationList }: ts.VariableStatement): O {
+function getPattern({ declarationList }: ts.VariableStatement): GetPatternOutput {
   invariant(declarationList.declarations.length, '(1)');
 
   const variableDeclaration = declarationList.declarations[0]!;
@@ -24,39 +22,34 @@ function getPattern({ declarationList }: ts.VariableStatement): O {
 
   const parsedCallExpression = parseCallExpression(variableDeclaration.initializer);
 
-  const typeArguments = parsedCallExpression.typeArguments
-    /**/ .filter(typeArgument => typeArgument.kind === 'TypeLiteral') as TypeLiteral[];
+  const typeArguments = parsedCallExpression.typeArguments.filter(typeArgument => typeArgument.kind === 'TypeLiteral');
 
   let parameters: [string, string][] = [];
 
   if (typeArguments.length === 1) {
-    parameters = typeArguments[0]!.of.reduce<[string, string][]>(
-      (parameters, member) => {
-        if (member.kind === 'PropertySignature') {
-          let type = `: ${typeAsText(member.of)}`;
+    parameters = typeArguments[0]!.of.reduce<[string, string][]>((parameters, member) => {
+      if (member.kind === 'PropertySignature') {
+        let type = `: ${typeAsText(member.of)}`;
 
-          if (member.hasQuestionToken) {
-            type = `?${type}`;
-          }
-
-          return [...parameters, [member.name, type]];
+        if (member.hasQuestionToken) {
+          type = `?${type}`;
         }
 
-        return parameters;
-      },
-      /**/ [],
-    );
+        return [...parameters, [member.name, type]];
+      }
+
+      return parameters;
+    }, []);
   }
 
   invariant(parsedCallExpression.arguments[0]?.kind === 'StringLiteral', '(3)');
 
   return {
     parameters,
-    parent: parsedCallExpression,
     url: `https://server.redred.app${parsedCallExpression.arguments[0].text}`,
   };
 }
 
-export type { O as GetPatternOutput };
+export type { GetPatternOutput };
 
 export default getPattern;

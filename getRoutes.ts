@@ -1,10 +1,11 @@
 /*
- * Copyright 2023 Marek Kobida
+ * Copyright 2024 Marek Kobida
+ * Last Updated: 27.06.2024
  */
 
-import ts from 'typescript';
-import getRoute from './getRoute';
 import type { GetRouteOutput } from './getRoute';
+import getRoute from './getRoute';
+import ts from 'typescript';
 
 function getRoutes(expressionStatements: ts.ExpressionStatement[]): GetRouteOutput[] {
   return expressionStatements.reduce<GetRouteOutput[]>(

@@ -1,6 +1,6 @@
 /*
  * Copyright 2024 Marek Kobida
- * Last Updated: 26.06.2024
+ * Last Updated: 27.06.2024
  */
 
 import invariant from '@helpers/validation/invariant';
@@ -16,23 +16,22 @@ type ParseCallExpressionOutput = {
 };
 
 function parseCallExpression(callExpression: ts.CallExpression): ParseCallExpressionOutput {
-  invariant(ts.isPropertyAccessExpression(callExpression.expression), '(1)');
+  invariant(ts.isPropertyAccessExpression(callExpression.expression), 'cdd98964-ebf8-4b73-96a1-a3dc11f531d7');
 
   const propertyAccessExpression = callExpression.expression;
 
+  /**
+   * new Pattern<{ accountId?: string }>('/account/:accountId?').getServerRoutePattern();
+   *     |      |                       |
+   *     |      |                       `- arguments[]
+   *     |      `------------------------- typeArguments[]
+   *     `-------------------------------- name
+   */
   if (ts.isNewExpression(propertyAccessExpression.expression)) {
-    /**
-     * new Pattern<{ accountId?: string }>('/account/:accountId?').getServerRoutePattern();
-     *     |      |                       |
-     *     |      |                       `- arguments[]
-     *     |      `------------------------- typeArguments[]
-     *     `-------------------------------- name
-     */
-
     const newExpression = propertyAccessExpression.expression;
 
     const name = newExpression.expression;
-    invariant(ts.isIdentifier(name), '(2)');
+    invariant(ts.isIdentifier(name), '5e6fd19c-02c8-4fc6-9aa9-773d28de7bf1');
 
     return {
       arguments: newExpression.arguments ? newExpression.arguments.map(parseArgument) : [],

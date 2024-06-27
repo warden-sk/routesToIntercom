@@ -1,21 +1,22 @@
 /*
- * Copyright 2023 Marek Kobida
+ * Copyright 2024 Marek Kobida
+ * Last Updated: 27.06.2024
  */
 
 import invariant from '@helpers/validation/invariant';
-import type ts from 'typescript';
-import parseCallExpression from './parseCallExpression';
 import type { ParseCallExpressionOutput } from './parseCallExpression';
+import parseCallExpression from './parseCallExpression';
+import type ts from 'typescript';
 import typeAsText from './typeAsText';
 
-interface O {
+type GetRouteOutput = {
   httpMethod: string;
   httpResponseType: string;
   isAuthorizedRoute: boolean;
   parent: ParseCallExpressionOutput;
-}
+};
 
-function getRoute(callExpression: ts.CallExpression): O {
+function getRoute(callExpression: ts.CallExpression): GetRouteOutput {
   const parsedCallExpression = parseCallExpression(callExpression);
 
   invariant(parsedCallExpression.arguments.length === 3, '(1)');
@@ -35,6 +36,6 @@ function getRoute(callExpression: ts.CallExpression): O {
   };
 }
 
-export type { O as GetRouteOutput };
+export type { GetRouteOutput };
 
 export default getRoute;
