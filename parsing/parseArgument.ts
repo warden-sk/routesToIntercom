@@ -13,15 +13,7 @@ function parseArgument(argument: ts.Node): ParseArgumentOutput {
   }
 
   if (ts.isArrowFunction(argument)) {
-    if (argument.type && ts.isTypeReferenceNode(argument.type)) {
-      const isPromise = ts.isIdentifier(argument.type.typeName) && argument.type.typeName.text === 'Promise';
-
-      const typeArguments = isPromise ? (argument.type.typeArguments ?? []).map(parseArgument) : [];
-
-      return { kind: 'ArrowFunction', typeArguments };
-    }
-
-    return { kind: 'ArrowFunction', typeArguments: [] };
+    return { kind: 'ArrowFunction', type: argument.type && parseArgument(argument.type) };
   }
 
   if (ts.isIdentifier(argument)) {
@@ -37,8 +29,8 @@ function parseArgument(argument: ts.Node): ParseArgumentOutput {
   }
 
   if (ts.isPropertySignature(argument)) {
-    invariant(ts.isIdentifier(argument.name), '(1)');
-    invariant(argument.type, '(2)');
+    invariant(ts.isIdentifier(argument.name), '710931e5-3142-4cb6-a653-a7446e0eae0d');
+    invariant(argument.type, '3088deb6-6f21-46cd-ba3d-15b9ed1588eb');
 
     return {
       hasQuestionToken: !!argument.questionToken,
@@ -57,9 +49,13 @@ function parseArgument(argument: ts.Node): ParseArgumentOutput {
   }
 
   if (ts.isTypeReferenceNode(argument)) {
-    invariant(ts.isIdentifier(argument.typeName), '(1)');
+    invariant(ts.isIdentifier(argument.typeName), '51354191-9093-4985-86f0-a6432729f3da');
 
-    return { kind: 'TypeReference', typeName: argument.typeName.text };
+    return {
+      kind: 'TypeReference',
+      typeArguments: argument.typeArguments?.map(parseArgument) ?? [],
+      typeName: argument.typeName.text,
+    };
   }
 
   if (ts.isUnionTypeNode(argument)) {
