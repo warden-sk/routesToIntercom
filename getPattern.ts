@@ -1,10 +1,9 @@
 /*
  * Copyright 2024 Marek Kobida
- * Last Updated: 28.06.2024
+ * Last Updated: 30.06.2024
  */
 
 import invariant from '@helpers/validation/invariant';
-import messages from './messages';
 import parseCallExpression from './parsing/parseCallExpression';
 import ts from 'typescript';
 import typeAsText from './typeAsText';
@@ -15,13 +14,13 @@ type GetPatternOutput = {
 };
 
 function getPattern({ declarationList }: ts.VariableStatement): GetPatternOutput {
-  invariant(declarationList.declarations.length, 'Expected at least one variable declaration.');
+  invariant(declarationList.declarations.length, '6951de81-1243-44ae-a44b-030e3b7225ca');
 
   const variableDeclaration = declarationList.declarations[0]!;
 
   invariant(
     variableDeclaration.initializer && ts.isCallExpression(variableDeclaration.initializer),
-    'Expected the variable declaration to be a `CallExpression`.',
+    'ef5bcb81-7140-479e-96a3-4f035f3425d8',
   );
 
   const parsedCallExpression = parseCallExpression(variableDeclaration.initializer);
@@ -47,7 +46,7 @@ function getPattern({ declarationList }: ts.VariableStatement): GetPatternOutput
   /**
    * Url
    */
-  invariant(firstArgument?.kind === 'StringLiteral', messages.EXPECTED_FIRST_ARGUMENT_TO_BE_STRING_LITERAL);
+  invariant(firstArgument?.kind === 'StringLiteral', '8345f89e-7939-42cc-94dc-2b531f7bdf7a');
 
   return { parameters, url: `https://server.redred.app${firstArgument.text}` };
 }
