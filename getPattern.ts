@@ -1,53 +1,55 @@
 /*
  * Copyright 2024 Marek Kobida
- * Last Updated: 27.06.2024
+ * Last Updated: 28.06.2024
  */
 
 import invariant from '@helpers/validation/invariant';
+import messages from './messages';
 import parseCallExpression from './parsing/parseCallExpression';
 import ts from 'typescript';
 import typeAsText from './typeAsText';
 
 type GetPatternOutput = {
-  parameters: [string, string][];
+  parameters: [name: string, type: string][];
   url: string;
 };
 
 function getPattern({ declarationList }: ts.VariableStatement): GetPatternOutput {
-  invariant(declarationList.declarations.length, '(1)');
+  invariant(declarationList.declarations.length, 'Expected at least one variable declaration.');
 
   const variableDeclaration = declarationList.declarations[0]!;
 
-  invariant(variableDeclaration.initializer && ts.isCallExpression(variableDeclaration.initializer), '(2)');
+  invariant(
+    variableDeclaration.initializer && ts.isCallExpression(variableDeclaration.initializer),
+    'Expected the variable declaration to be a `CallExpression`.',
+  );
 
   const parsedCallExpression = parseCallExpression(variableDeclaration.initializer);
 
-  const typeArguments = parsedCallExpression.typeArguments.filter(typeArgument => typeArgument.kind === 'TypeLiteral');
+  const [firstArgument] = parsedCallExpression.arguments;
 
-  let parameters: [string, string][] = [];
+  const [firstTypeArgument] = parsedCallExpression.typeArguments.filter(
+    typeArgument => typeArgument.kind === 'TypeLiteral',
+  );
 
-  if (typeArguments.length === 1) {
-    parameters = typeArguments[0]!.of.reduce<[string, string][]>((parameters, member) => {
-      if (member.kind === 'PropertySignature') {
-        let type = `: ${typeAsText(member.of)}`;
+  /**
+   * Parameter(s)
+   */
+  let parameters: [name: string, type: string][] = [];
 
-        if (member.hasQuestionToken) {
-          type = `?${type}`;
-        }
-
-        return [...parameters, [member.name, type]];
-      }
-
-      return parameters;
-    }, []);
+  if (firstTypeArgument) {
+    parameters = firstTypeArgument.of
+      .filter(member => member.kind === 'PropertySignature')
+      // { id?: string } → ['id', '?: string']
+      .map(member => [member.name, `${member.hasQuestionToken ? '?' : ''}: ${typeAsText(member.of)}`]);
   }
 
-  invariant(parsedCallExpression.arguments[0]?.kind === 'StringLiteral', '(3)');
+  /**
+   * Url
+   */
+  invariant(firstArgument?.kind === 'StringLiteral', messages.EXPECTED_FIRST_ARGUMENT_TO_BE_STRING_LITERAL);
 
-  return {
-    parameters,
-    url: `https://server.redred.app${parsedCallExpression.arguments[0].text}`,
-  };
+  return { parameters, url: `https://server.redred.app${firstArgument.text}` };
 }
 
 export type { GetPatternOutput };

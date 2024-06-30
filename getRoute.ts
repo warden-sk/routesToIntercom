@@ -1,12 +1,12 @@
 /*
  * Copyright 2024 Marek Kobida
- * Last Updated: 27.06.2024
+ * Last Updated: 28.06.2024
  */
 
 import invariant from '@helpers/validation/invariant';
 import messages from './messages';
 import parseCallExpression from './parsing/parseCallExpression';
-import type ts from 'typescript';
+import ts from 'typescript';
 import typeAsText from './typeAsText';
 
 type GetRouteOutput = {
@@ -15,8 +15,10 @@ type GetRouteOutput = {
   isAuthorizedRoute: boolean;
 };
 
-function getRoute(callExpression: ts.CallExpression): GetRouteOutput {
-  const parsedCallExpression = parseCallExpression(callExpression);
+function getRoute(expressionStatement: ts.ExpressionStatement): GetRouteOutput {
+  invariant(ts.isCallExpression(expressionStatement.expression), messages.EXPECTED_ARGUMENT_TO_BE_CALL_EXPRESSION);
+
+  const parsedCallExpression = parseCallExpression(expressionStatement.expression);
 
   /**
    * router.createAuthorizedRoute('GET', PATTERN, () => {});
