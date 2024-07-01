@@ -1,6 +1,6 @@
 /*
  * Copyright 2024 Marek Kobida
- * Last Updated: 28.06.2024
+ * Last Updated: 01.07.2024
  */
 
 import invariant from '@helpers/validation/invariant';
@@ -12,7 +12,6 @@ import typeAsText from './typeAsText';
 type GetRouteOutput = {
   httpMethod: string;
   httpResponseType: string;
-  isAuthorizedRoute: boolean;
 };
 
 function getRoute(expressionStatement: ts.ExpressionStatement): GetRouteOutput {
@@ -27,16 +26,17 @@ function getRoute(expressionStatement: ts.ExpressionStatement): GetRouteOutput {
    */
   invariant(parsedCallExpression.arguments.length === 3, messages.EXPECTED_THREE_ARGUMENTS_IN_CALL_EXPRESSION);
 
-  const [$1st, , $3rd] = parsedCallExpression.arguments;
+  const [firstArgument, , thirdArgument] = parsedCallExpression.arguments;
 
-  invariant($1st!.kind === 'StringLiteral', messages.EXPECTED_FIRST_ARGUMENT_TO_BE_STRING_LITERAL);
-  invariant($3rd!.kind === 'ArrowFunction', messages.EXPECTED_THIRD_ARGUMENT_TO_BE_ARROW_FUNCTION);
+  invariant(firstArgument!.kind === 'StringLiteral', messages.EXPECTED_FIRST_ARGUMENT_TO_BE_STRING_LITERAL);
+  invariant(thirdArgument!.kind === 'ArrowFunction', messages.EXPECTED_THIRD_ARGUMENT_TO_BE_ARROW_FUNCTION);
 
-  const httpMethod = $1st.text;
-  const httpResponseType = $3rd.type?.kind === 'TypeReference' ? $3rd.type.typeArguments.map(typeAsText)[0]! : 'void';
-  const isAuthorizedRoute = parsedCallExpression.name === 'createAuthorizedRoute';
+  const httpMethod = firstArgument.text;
 
-  return { httpMethod, httpResponseType, isAuthorizedRoute };
+  const httpResponseType =
+    thirdArgument.type?.kind === 'TypeReference' ? thirdArgument.type.typeArguments.map(typeAsText)[0]! : 'void';
+
+  return { httpMethod, httpResponseType };
 }
 
 export type { GetRouteOutput };

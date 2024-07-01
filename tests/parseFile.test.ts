@@ -1,6 +1,6 @@
 /*
  * Copyright 2024 Marek Kobida
- * Last Updated: 28.06.2024
+ * Last Updated: 01.07.2024
  */
 
 import assert from 'node:assert';
@@ -13,7 +13,7 @@ test('(1) parseFile', async () => {
   assert.deepStrictEqual(parsedFile, {
     fileName: '01-file',
     pattern: { parameters: [], url: 'https://server.redred.app/product' },
-    routes: [{ httpMethod: 'GET', httpResponseType: 'void', isAuthorizedRoute: false }],
+    routes: [{ httpMethod: 'GET', httpResponseType: 'void' }],
   });
 });
 
@@ -29,7 +29,7 @@ test('(2) parseFile', async () => {
       ],
       url: 'https://server.redred.app/:language/product/:id?',
     },
-    routes: [{ httpMethod: 'DELETE', httpResponseType: 'void', isAuthorizedRoute: true }],
+    routes: [{ httpMethod: 'DELETE', httpResponseType: 'void' }],
   });
 });
 
@@ -39,6 +39,6 @@ test('(3) parseFile', async () => {
   assert.deepStrictEqual(parsedFile, {
     fileName: '03-file',
     pattern: { parameters: [['id', ': string']], url: 'https://server.redred.app/product/:id' },
-    routes: [{ httpMethod: 'GET', httpResponseType: 'string', isAuthorizedRoute: false }],
+    routes: [{ httpMethod: 'GET', httpResponseType: 'string' }],
   });
 });
