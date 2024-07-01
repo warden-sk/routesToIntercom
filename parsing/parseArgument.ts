@@ -1,9 +1,10 @@
 /*
  * Copyright 2024 Marek Kobida
- * Last Updated: 27.06.2024
+ * Last Updated: 01.07.2024
  */
 
 import invariant from '@helpers/validation/invariant';
+import messages from '../messages';
 import ts from 'typescript';
 import type { FilteredSyntaxKindKeys, ParseArgumentOutput } from '../types';
 
@@ -29,8 +30,8 @@ function parseArgument(argument: ts.Node): ParseArgumentOutput {
   }
 
   if (ts.isPropertySignature(argument)) {
-    invariant(ts.isIdentifier(argument.name), '710931e5-3142-4cb6-a653-a7446e0eae0d');
-    invariant(argument.type, '3088deb6-6f21-46cd-ba3d-15b9ed1588eb');
+    invariant(ts.isIdentifier(argument.name), messages.EXPECTED_ARGUMENT_NAME_TO_BE_IDENTIFIER);
+    invariant(argument.type, messages.EXPECTED_ARGUMENT_TO_HAVE_TYPE);
 
     return {
       hasQuestionToken: !!argument.questionToken,
@@ -49,7 +50,7 @@ function parseArgument(argument: ts.Node): ParseArgumentOutput {
   }
 
   if (ts.isTypeReferenceNode(argument)) {
-    invariant(ts.isIdentifier(argument.typeName), '51354191-9093-4985-86f0-a6432729f3da');
+    invariant(ts.isIdentifier(argument.typeName), messages.EXPECTED_ARGUMENT_TYPE_NAME_TO_BE_IDENTIFIER);
 
     return {
       kind: 'TypeReference',
