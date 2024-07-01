@@ -1,6 +1,6 @@
 /*
  * Copyright 2024 Marek Kobida
- * Last Updated: 27.06.2024
+ * Last Updated: 01.07.2024
  */
 
 const files: string[] = [
@@ -11,8 +11,6 @@ const files: string[] = [
   '/Users/marekkobida/Documents/warden/leopold/server/routes/server/application/applicationSubscribeRoute.ts',
   '/Users/marekkobida/Documents/warden/leopold/server/routes/server/application/applicationUnsubscribeRoute.ts',
   '/Users/marekkobida/Documents/warden/leopold/server/routes/server/application/applicationVersionRoute.ts',
-  '/Users/marekkobida/Documents/warden/leopold/server/routes/server/authorization/signInRoute.ts',
-  '/Users/marekkobida/Documents/warden/leopold/server/routes/server/authorization/signOutRoute.ts',
   '/Users/marekkobida/Documents/warden/leopold/server/routes/server/category/categoryRoute.ts',
   '/Users/marekkobida/Documents/warden/leopold/server/routes/server/conversation/conversationMessageRoute.ts',
   '/Users/marekkobida/Documents/warden/leopold/server/routes/server/countryRoute.ts',
@@ -24,6 +22,8 @@ const files: string[] = [
   '/Users/marekkobida/Documents/warden/leopold/server/routes/server/me/meRoute.ts',
   '/Users/marekkobida/Documents/warden/leopold/server/routes/server/me/meSecretRoute.ts',
   '/Users/marekkobida/Documents/warden/leopold/server/routes/server/px.ts',
+  '/Users/marekkobida/Documents/warden/leopold/server/routes/server/authorization/signInRoute.ts',
+  '/Users/marekkobida/Documents/warden/leopold/server/routes/server/authorization/signOutRoute.ts',
   '/Users/marekkobida/Documents/warden/leopold/server/routes/server/uploadRoute.ts',
 ];
 
