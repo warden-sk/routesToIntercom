@@ -1,6 +1,6 @@
 /*
  * Copyright 2024 Marek Kobida
- * Last Updated: 27.06.2024
+ * Last Updated: 01.07.2024
  */
 
 import getRequestFunction from './functions/getRequestFunction';
@@ -18,7 +18,6 @@ import IFrame from '@intercom/IFrame';
 import React from 'react';
 import type {
   CategoryRow,
-  ConversationRow,
   CountryRow,
   DirectoryRow,
   FileRow,
@@ -26,7 +25,6 @@ import type {
   TransformedAccountRow,
   TransformedApplicationRow,
   TransformedApplicationVersionRow,
-  TransformedConversationMessageRow,
   TransformedMailCampaignRow,
 } from '@intercom/types';
 
