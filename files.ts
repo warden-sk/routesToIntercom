@@ -1,6 +1,6 @@
 /*
  * Copyright 2024 Marek Kobida
- * Last Updated: 01.07.2024
+ * Last Updated: 02.07.2024
  */
 
 const files: string[] = [
@@ -13,7 +13,7 @@ const files: string[] = [
   '/Users/marekkobida/Documents/warden/leopold/server/routes/server/application/applicationVersionRoute.ts',
   '/Users/marekkobida/Documents/warden/leopold/server/routes/server/category/categoryRoute.ts',
   '/Users/marekkobida/Documents/warden/leopold/server/routes/server/countryRoute.ts',
-  '/Users/marekkobida/Documents/warden/leopold/server/routes/server/directoryRoute.ts',
+  '/Users/marekkobida/Documents/warden/leopold/applications/Files/server/routes/directoryRoute.ts',
   '/Users/marekkobida/Documents/warden/leopold/server/routes/server/mailCampaignRoute.ts',
   '/Users/marekkobida/Documents/warden/leopold/server/routes/server/mailRoute.ts',
   '/Users/marekkobida/Documents/warden/leopold/server/routes/server/me/meFriendRequestRoute.ts',
@@ -22,7 +22,7 @@ const files: string[] = [
   '/Users/marekkobida/Documents/warden/leopold/server/routes/server/px.ts',
   '/Users/marekkobida/Documents/warden/leopold/server/routes/server/authorization/signInRoute.ts',
   '/Users/marekkobida/Documents/warden/leopold/server/routes/server/authorization/signOutRoute.ts',
-  '/Users/marekkobida/Documents/warden/leopold/server/routes/server/uploadRoute.ts',
+  '/Users/marekkobida/Documents/warden/leopold/applications/Files/server/routes/uploadRoute.ts',
 ];
 
 export default files;

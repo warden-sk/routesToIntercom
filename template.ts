@@ -1,6 +1,6 @@
 /*
  * Copyright 2024 Marek Kobida
- * Last Updated: 01.07.2024
+ * Last Updated: 02.07.2024
  */
 
 import getRequestFunction from './functions/getRequestFunction';
@@ -15,7 +15,6 @@ function template(functionDefinitions: string, typeDefinitions: string): string 
  */
 
 import IFrame from '@intercom/IFrame';
-import React from 'react';
 import type {
   CategoryRow,
   CountryRow,
@@ -27,6 +26,7 @@ import type {
   TransformedApplicationVersionRow,
   TransformedMailCampaignRow,
 } from '@intercom/types';
+import React from 'react';
 
 type GetRequestInput = {
   abortController?: AbortController;
