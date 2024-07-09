@@ -1,6 +1,6 @@
 /*
  * Copyright 2024 Marek Kobida
- * Last Updated: 02.07.2024
+ * Last Updated: 09.07.2024
  */
 
 import getRequestFunction from './functions/getRequestFunction';
@@ -30,7 +30,7 @@ import React from 'react';
 
 type GetRequestInput = {
   abortController?: AbortController;
-  body?: ReadableStream | string;
+  body?: ArrayBuffer | Blob | string;
   method?: 'DELETE' | 'GET' | 'PATCH' | 'POST' | 'PUT';
   parameters?: Record<string, string | undefined>;
 
